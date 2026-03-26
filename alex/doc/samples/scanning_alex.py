@@ -1,5 +1,5 @@
-import os
 import alex
+
 
 OPERATORS = (
     ("PLUS", "+"),
@@ -58,8 +58,41 @@ REGEXPS = (
     ("ID", f"^[a-zA-Z_]*"),
 )
 KEYWORDS = [
-    'if',
-    'then',
+    "False",
+    "None",
+    "True",
+    "and",
+    "as",
+    "assert",
+    "async",
+    "await",
+    "break",
+    "class",
+    "continue",
+    "def",
+    "del",
+    "elif",
+    "else",
+    "except",
+    "finally",
+    "for",
+    "from",
+    "global",
+    "if",
+    "import",
+    "in",
+    "is",
+    "lambda",
+    "nonlocal",
+    "not",
+    "or",
+    "pass",
+    "raise",
+    "return",
+    "try",
+    "while",
+    "with",
+    "yield",
 ]
 
 lexer = alex.Alex(
@@ -67,7 +100,8 @@ lexer = alex.Alex(
     regexps=REGEXPS,
     keywords=KEYWORDS)
 
-lexer.scan_file(os.path.join('..', '..', 'main.py'))
+lexer.scan_file('test.py')
+#lexer.scan_file(os.path.join('..', '..', 'main.py'))
 #lexer.scan('  #')
 
 print('----(Tokens found)----------')
