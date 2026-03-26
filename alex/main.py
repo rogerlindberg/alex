@@ -9,7 +9,11 @@ of input characters that comprise a single token)
 import re
 
 
-USED_TOKEN_KEYS = ['KEYWORD']
+USED_TOKEN_KEYS = ["KEYWORD"]
+
+
+class AlexScanError(Exception):
+    pass
 
 
 class Alex:
@@ -41,8 +45,16 @@ class Alex:
             print(token)
     """
 
-    def __init__(self, skipchars=' \t\r', newline='\n', keywords=[], regexps=[], operators={},
-                 skip_unrecognized_chars=False, treat_unrecognized_chars_as_an_operator=False):
+    def __init__(
+        self,
+        skipchars=" \t\r",
+        newline="\n",
+        keywords=None,
+        regexps=None,
+        operators=None,
+        skip_unrecognized_chars=False,
+        treat_unrecognized_chars_as_an_operator=False,
+    ):
         """
         skipchars:  A string containing all characters that are to be
                     skipped from the input.
@@ -81,17 +93,19 @@ class Alex:
                     Return the unrecogognized charachter as a lexical element.
         """
         USED_TOKEN_KEYS.clear()
-        USED_TOKEN_KEYS.append('KEYWORD')
+        USED_TOKEN_KEYS.append("KEYWORD")
         self._nbr_of_bytes = 0
         self._nbr_of_lines = 0
         self._nbr_of_skipped_chars = 0
         self._skipchars = skipchars
         self._newline = newline
-        self._keywords = self._set_keywords(keywords)
-        self._regexps = self._set_regexps(regexps)
-        self._operators = self._set_operators(operators)
+        self._keywords = set(keywords or [])
+        self._regexps = self._set_regexps(regexps or [])
+        self._operators = self._set_operators(operators or [])
         self._skip_unrecognized_chars = skip_unrecognized_chars
-        self._treat_unrecognized_chars_as_an_operator = treat_unrecognized_chars_as_an_operator
+        self._treat_unrecognized_chars_as_an_operator = (
+            treat_unrecognized_chars_as_an_operator
+        )
 
     @property
     def nbr_of_bytes(self):
@@ -109,13 +123,14 @@ class Alex:
     def tokens(self):
         return self._tokens
 
-    def scanfile(self, path):
+    def scan_file(self, path):
         """
         This function returns a list of Token objects representing the
         tokens found in the text of the input file.
         """
         import codecs
-        with codecs.open(path, encoding='utf-8') as f:
+
+        with codecs.open(path, encoding="utf-8") as f:
             text = f.read()
         return self.scan(text)
 
@@ -145,13 +160,20 @@ class Alex:
             self._nbr_of_skipped_chars += 1
             return text[1:]
         elif self._treat_unrecognized_chars_as_an_operator:
-            self._add_token('UNRECOGNIZED-CHAR', text[0])
+            self._add_token("UNRECOGNIZED-CHAR", text[0])
             return self._eat_last_token(text)
         else:
-            raise ValueError("Unrecognized char |%s| ordinal %s" % (text[:10], ord(text[0])))
+            if len(self.tokens) == 0:
+                raise AlexScanError(
+                    f"Unrecognized char '{text[0]}' ordinal {ord(text[0])}\nFollowing 10 characters are: {text[1:11]}\nNo tokens was scanned"
+                )
+            else:
+                raise AlexScanError(
+                    f"Unrecognized char '{text[0]}' ordinal {ord(text[0])}\nFollowing 10 characters are: {text[1:11]}\nLast scanned Token: {self.tokens[-1]}"
+                )
 
     def _is_newline(self, text):
-        return self._newline and text[:len(self._newline)] == self._newline
+        return self._newline and text[: len(self._newline)] == self._newline
 
     def _is_skipchar(self, text):
         if text[0] in self._skipchars:
@@ -167,8 +189,8 @@ class Alex:
     def _keyword_token_created(self, text):
         for keyword in self._keywords:
             size = len(keyword)
-            if text[: size] == keyword:
-                self._add_token('KEYWORD', text[: size])
+            if text[:size] == keyword:
+                self._add_token("KEYWORD", text[:size])
                 return True
 
     def _regexp_token_created(self, text):
@@ -176,10 +198,10 @@ class Alex:
             m = reg.match(text)
             if m and len(m.group()) > 0:
                 lexeme = m.group()
-                if lexeme.endswith('\n'):
+                if lexeme.endswith("\n"):
                     lexeme = lexeme[:-1]
                 if lexeme in self._keywords:
-                    self._add_token('KEYWORD', lexeme)
+                    self._add_token("KEYWORD", lexeme)
                 else:
                     self._add_token(name, lexeme)
                 return True
@@ -217,10 +239,6 @@ class Alex:
     # This code is important but it is moved here so that the logic of the
     # Lexical Analysis will be more understandable.
     #
-
-    def _set_keywords(self, keywords):
-        self._validate_keywords(keywords)
-        return keywords
 
     def _set_regexps(self, regexps):
         """
@@ -260,28 +278,12 @@ class Alex:
     # Validation of inputs
     #
 
-    def _validate_keywords(self, keywords):
-        dups = self._get_duplicated_values(keywords)
-        if dups:
-            print("Duplicated keywords: %s" % dups)
-            raise ValueError("Duplicated keywords!")
-
-    def _get_duplicated_values(self, collection):
-        if len(collection) == len(set(collection)):
-            return []
-        sorted_collection = sorted(collection)
-        dups = []
-        for i, k in enumerate(sorted_collection):
-            if i > 0 and sorted_collection[i] == sorted_collection[i - 1]:
-                dups.append(sorted_collection[i])
-        return list(set(dups))
-
     def _validate_regexps(self, regexps):
         self._validate_regexps_syntax(regexps)
         self._validate_regexps_token_names(regexps)
 
     def _validate_regexps_syntax(self, regexps):
-        invalid_regexps = [t for t in regexps if t[1][0] != '^']
+        invalid_regexps = [t for t in regexps if t[1][0] != "^"]
         if invalid_regexps:
             print("A regexp must start with the ^ characters.")
             print("The following items are not following that rule!")
@@ -292,7 +294,9 @@ class Alex:
     def _validate_regexps_token_names(self, regexps):
         for key, _ in regexps:
             if key in USED_TOKEN_KEYS:
-                raise ValueError("Invalid regexp. The key '%s' has already been used!" % key)
+                raise ValueError(
+                    "Invalid regexp. The key '%s' has already been used!" % key
+                )
             USED_TOKEN_KEYS.append(key)
 
     def _validate_operators(self, operators):
@@ -302,7 +306,9 @@ class Alex:
     def _validate_operators_keys(self, operators):
         for name, _ in operators:
             if name in USED_TOKEN_KEYS:
-                raise ValueError("Invalid operator. The key '%s' has already been used!" % name)
+                raise ValueError(
+                    "Invalid operator. The key '%s' has already been used!" % name
+                )
             USED_TOKEN_KEYS.append(name)
 
     def _validate_operators_lexemes(self, operators):
@@ -336,4 +342,9 @@ class Token:
         return self._colno
 
     def __repr__(self):
-        return "%5d:%3d  %-12s %-12s" % (self._lineno, self._colno, self._name, self._lexeme)
+        return "%5d:%3d  %-12s %-12s" % (
+            self._lineno,
+            self._colno,
+            self._name,
+            self._lexeme,
+        )
