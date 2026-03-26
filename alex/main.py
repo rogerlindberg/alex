@@ -326,7 +326,7 @@ class Alex:
 
     @staticmethod
     def _compile_rexeps(regexps):
-        return [(name, re.compile(reg)) for name, reg in regexps]
+        return [(name, re.compile(reg, re.DOTALL)) for name, reg in regexps]
 
     def _set_operators(self, operators):
         """
