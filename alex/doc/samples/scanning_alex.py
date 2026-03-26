@@ -25,7 +25,6 @@ OPERATORS = (
     ("XOR", "^"),
     ("NOT", "~"),
     ("AND", "&"),
-
     ("ADDEQ", "+="),
     ("SUBEQ", "-="),
     ("MULEQ", "*="),
@@ -45,7 +44,6 @@ OPERATORS = (
     ("XOREQ", "^="),
     ("ANDEQ", "&="),
     ("WALRUS", ":="),
-
     ("EXPEQ", "**="),
     ("LSHIFTEQ", "<<="),
     ("RSHIFTEQ", ">>="),
@@ -54,7 +52,7 @@ REGEXPS = (
     ("TSTR", r'^f?"""(?:\\.|(?!""").)*?"""|^f?\'\'\'(?:\\.|(?!\'\'\').)*?\'\'\''),
     ("STR", r'^f?"(?:\\.|[^"\\])*"|^f?\'(?:\\.|[^\'\\])*\''),
     ("NUM", '^["0123456789"]*'),
-    ("REM", '^#[^\n]*'),
+    ("REM", "^#[^\n]*"),
     ("ID", f"^[a-zA-Z_]*"),
 )
 KEYWORDS = [
@@ -96,15 +94,11 @@ KEYWORDS = [
 ]
 
 lexer = alex.Alex(
-    operators=OPERATORS,
-    regexps=REGEXPS,
-    keywords=KEYWORDS,
-    scan_python_indents=True)
+    operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS, scan_python_indents=True
+)
 
-lexer.scan_file('test.py')
-#lexer.scan_file(os.path.join('..', '..', 'main.py'))
-#lexer.scan('  #')
+lexer.scan_file("test.py")
 
-print('----(Tokens found)----------')
+print("----(Tokens found)----------")
 for token in lexer.tokens:
     print(token)
