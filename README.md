@@ -212,7 +212,7 @@ your own set.
     lexer = alex.Alex(
         operators=OPERATORS,
         regexps=REGEXPS,
-        skipchars=' \t+')
+        skip_chars=' \t+')
 
 And the output will be:
 

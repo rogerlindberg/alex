@@ -49,7 +49,7 @@ class Alex:
 
     def __init__(
         self,
-        skipchars=" \t\r",
+        skip_chars=" \t\r",
         newline="\n",
         keywords=None,
         regexps=None,
@@ -102,7 +102,7 @@ class Alex:
         self._nbr_of_bytes = 0
         self._nbr_of_lines = 0
         self._nbr_of_skipped_chars = 0
-        self._skipchars = skipchars
+        self._skip_chars = skip_chars
         self._newline = newline
         self._keywords = set(keywords or [])
         self._regexps = self._set_regexps(regexps or [])
@@ -185,7 +185,7 @@ class Alex:
         return self._newline and text[: len(self._newline)] == self._newline
 
     def _is_skipchar(self, text):
-        if text[0] in self._skipchars:
+        if text[0] in self._skip_chars:
             self._nbr_of_skipped_chars += 1
             return True
 

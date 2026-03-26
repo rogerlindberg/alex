@@ -12,7 +12,7 @@ REGEXPS = (
 lexer = alex.Alex(
     operators=OPERATORS,
     regexps=REGEXPS,
-    skipchars=' \t+')
+    skip_chars=' \t+')
 
 try:
     lexer.scan('x = 1 + 1 + 3')
