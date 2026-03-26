@@ -275,6 +275,8 @@ class Alex:
                 lexeme = m.group()
                 if lexeme.endswith("\n"):
                     lexeme = lexeme[:-1]
+                if lexeme.endswith("\r"):
+                    lexeme = lexeme[:-1]
                 if lexeme in self._keywords:
                     self._add_token("KEYWORD", lexeme)
                 else:
