@@ -23,11 +23,16 @@ or in development mode:
 
 ## Usage
 
-Instantiate the class **Alex** and call on
-of the function
+Instantiate the class **Alex** and call one of the functions
 
 - scan(text)
 - scan_file(path)
+- generate(text)
+- generate_file(path)
+
+The scan functions returns a list of Tokens while the
+generate functions creates a generator that returns one 
+Token at a time.
 
 When instantiating the class **Alex** you
 must provide definitions of the tokens
@@ -124,7 +129,48 @@ The output is:
         2:  8  EQ           =           
         2: 10  NUM          17 
 
-## Example - error.py
+## Error handling
+
+When an error occurs one of the following exceptions is issued.
+
+- AlexDefinitionError,
+- AlexScanError,
+
+**AlexDefinitionError** is raised when there is something wrong
+with your definitions and **AlexScanError** is raised when a
+problem is detected during the scanning of the input text.
+
+## Definition error example - def_error.py
+
+    import alex
+    
+    
+    OPERATORS = (
+        ("ADD", "+"),
+        ("ADD", "-"),
+    )
+    
+    REGEXPS = (
+        ("NUM", '^["0123456789"]*'),
+    )
+    
+    
+    try:
+        lexer = alex.Alex(
+            operators=OPERATORS,
+            regexps=REGEXPS)
+        lexer.scan('1 + 2 - 123')
+    except alex.AlexDefinitionError as ex:
+        print('----(Error report)----------')
+        print(ex)
+    
+The output is
+    
+    ----(Error report)----------
+    Operator (ADD, '-'): Key 'ADD' already in use!
+
+
+## Scan error example - scan_error.py
 
     import alex
     
@@ -248,3 +294,15 @@ will be converted to a set.
 
     {'if', 'then'}
     
+
+## The Token class
+
+A Token class object has four attributes.
+
+- name
+- lexeme
+- line_nbr
+- col_nbr
+
+and a __repr__() function that returns these attributes as one string.
+

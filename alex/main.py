@@ -8,6 +8,7 @@ of input characters that comprise a single token)
 
 import re
 import codecs
+from typing import Any, Generator
 
 
 class AlexScanError(Exception):
@@ -167,26 +168,56 @@ class Alex:
         This function returns a list of Token objects representing the
         tokens found in the text of the input file.
         """
-        with codecs.open(path, encoding="utf-8") as f:
-            text = f.read()
+        text = self._read_file(path)
         self.scan(text)
+
+    def generate_file(self, path: str):
+        """
+        This function returns a list of Token objects representing the
+        tokens found in the text of the input file.
+        """
+        text = self._read_file(path)
+        for token in self.generate(text):
+            yield token
 
     def scan(self, text: str) -> None:
         """
         This function returns a list of Token objects representing the
         tokens found in the given input text.
         """
+        self._init_scan(text)
+        while text:
+            text = self._eat(text)
+
+    def generate(self, text: str) -> Generator[Any, Any, None]:
+        """
+        This function returns a list of Token objects representing the
+        tokens found in the given input text.
+        """
+        self._init_scan(text)
+        size = 0
+        while text:
+            text = self._eat(text)
+            current_size = len(self._tokens)
+            if current_size > size:
+                size = current_size
+                yield self._tokens[-1]
+
+    #
+    # Private methods
+    #
+
+    def _read_file(self, path):
+        with codecs.open(path, encoding="utf-8") as f:
+            text = f.read()
+        return text
+
+    def _init_scan(self, text):
         self._tokens = []
         self._line_nbr = 1
         self._col_nbr = 1
         self._nbr_of_bytes = len(text)
         self._nbr_of_lines = len(text.split(self._newline))
-        while text:
-            text = self._eat(text)
-
-    #
-    # Private methods
-    #
 
     def _eat(self, text):
         if self._is_newline(text):
@@ -336,7 +367,9 @@ class Alex:
     def _validate_operators(self, operators):
         for name, lexeme in operators:
             if name in self.used_token_keys:
-                msg = f"{self._op_msg_prefix(name, lexeme)} Key '{name}' already in use!"
+                msg = (
+                    f"{self._op_msg_prefix(name, lexeme)} Key '{name}' already in use!"
+                )
                 raise AlexDefinitionError(msg)
             if len(lexeme) == 0:
                 msg = f"{self._op_msg_prefix(name, lexeme)} Value length is zero!"
@@ -348,10 +381,10 @@ class Alex:
             self.used_token_keys.add(name)
 
     def _op_msg_prefix(self, name, value):
-        return self.msg_prefix('Operator', name, value)
+        return self.msg_prefix("Operator", name, value)
 
     def _re_msg_prefix(self, name, value):
-        return self.msg_prefix('Regexp', name, value)
+        return self.msg_prefix("Regexp", name, value)
 
     def msg_prefix(self, obj, name, value):
         return f"{obj} ({name}, '{value}'):"
