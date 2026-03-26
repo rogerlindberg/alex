@@ -400,10 +400,10 @@ class Alex:
             self.used_token_keys.add(name)
 
     def _op_msg_prefix(self, name, value):
-        return self.msg_prefix("Operator", name, value)
+        return self._msg_prefix("Operator", name, value)
 
     def _re_msg_prefix(self, name, value):
-        return self.msg_prefix("Regexp", name, value)
+        return self._msg_prefix("Regexp", name, value)
 
-    def msg_prefix(self, obj, name, value):
+    def _msg_prefix(self, obj, name, value):
         return f"{obj} ({name}, '{value}'):"
