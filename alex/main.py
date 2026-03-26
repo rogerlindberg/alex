@@ -7,7 +7,7 @@ of input characters that comprise a single token)
 """
 
 import re
-
+import codecs
 
 
 class AlexScanError(Exception):
@@ -133,11 +133,9 @@ class Alex:
         This function returns a list of Token objects representing the
         tokens found in the text of the input file.
         """
-        import codecs
-
         with codecs.open(path, encoding="utf-8") as f:
             text = f.read()
-        return self.scan(text)
+        self.scan(text)
 
     def scan(self, text):
         """
@@ -151,7 +149,6 @@ class Alex:
         self._nbr_of_lines = len(text.split(self._newline))
         while text:
             text = self._eat(text)
-        return self._tokens
 
     def _eat(self, text):
         if self._is_newline(text):
@@ -312,7 +309,7 @@ class Alex:
         for name, _ in operators:
             if name in self.used_token_keys:
                 raise AlexDefinitionError(
-                    f'Invalid operator. The key {name} has already been used!'
+                    f"Invalid operator. The key {name} has already been used!"
                 )
             self.used_token_keys.add(name)
 
@@ -320,7 +317,9 @@ class Alex:
     def _validate_operators_lexemes(operators):
         for name, lexeme in operators:
             if len(lexeme) == 0:
-                raise AlexDefinitionError(f'Invalid operator. Value length is zero for {name}')
+                raise AlexDefinitionError(
+                    f"Invalid operator. Value length is zero for {name}"
+                )
 
 
 class Token:
