@@ -33,7 +33,7 @@ When instantiating the class **Alex** you
 must provide definitions of the tokens
 that can appear in your input text.
 
-The defin[__init__.py](alex/__init__.py)itions to be defined are:
+The definitions to be defined are:
 
 - operators (A list/tuple of tuples)
 - regexps   (A list/tuple of tuples)
