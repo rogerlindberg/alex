@@ -90,6 +90,7 @@ class Alex:
         operators=None,
         skip_unrecognized_chars=False,
         treat_unrecognized_chars_as_an_operator=False,
+        scan_python_indents=False
     ):
         """
         skipchars:  A string containing all characters that are to be
@@ -146,6 +147,9 @@ class Alex:
         self._treat_unrecognized_chars_as_an_operator = (
             treat_unrecognized_chars_as_an_operator
         )
+        self._scan_python_indents = scan_python_indents
+        if scan_python_indents:
+            self.used_token_keys.add('INDENT')
 
     @property
     def nbr_of_bytes(self) -> int:
@@ -222,6 +226,9 @@ class Alex:
     def _eat(self, text):
         if self._is_newline(text):
             return self._eat_newline(text)
+        if self._scan_python_indents:
+            if self._is_indent(text):
+                return self._eat_indent(text)
         if self._is_skipchar(text):
             return self._eat_text(text, 1)
         if self._operator_token_created(text):
@@ -246,6 +253,9 @@ class Alex:
                 raise AlexScanError(
                     f"Unrecognized char '{text[0]}' ordinal {ord(text[0])}\nFollowing 10 characters are: {text[1:11]}\nLast scanned Token: {self.tokens[-1]}"
                 )
+
+    def _is_indent(self, text):
+        return self._col_nbr == 1 and text and text[0] == ' '
 
     def _is_newline(self, text):
         return self._newline and text[: len(self._newline)] == self._newline
@@ -287,6 +297,13 @@ class Alex:
         self._col_nbr = 1
         self._nbr_of_skipped_chars += len(self._newline)
         return self._eat_text(text, len(self._newline))
+
+    def _eat_indent(self, text):
+        count = 0
+        while text and text[count] == ' ':
+            count += 1
+        self._add_token('INDENT', str(count))
+        return self._eat_text(text, count)
 
     def _eat_last_token(self, text):
         return self._eat_text(text, len(self._tokens[-1]._lexeme))

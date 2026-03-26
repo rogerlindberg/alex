@@ -98,7 +98,8 @@ KEYWORDS = [
 lexer = alex.Alex(
     operators=OPERATORS,
     regexps=REGEXPS,
-    keywords=KEYWORDS)
+    keywords=KEYWORDS,
+    scan_python_indents=True)
 
 lexer.scan_file('test.py')
 #lexer.scan_file(os.path.join('..', '..', 'main.py'))
