@@ -94,6 +94,9 @@ class Alex:
         """
         USED_TOKEN_KEYS.clear()
         USED_TOKEN_KEYS.append("KEYWORD")
+        self._tokens = []
+        self._line_nbr = 1
+        self._col_nbr = 1
         self._nbr_of_bytes = 0
         self._nbr_of_lines = 0
         self._nbr_of_skipped_chars = 0
@@ -135,9 +138,13 @@ class Alex:
         return self.scan(text)
 
     def scan(self, text):
+        """
+        This function returns a list of Token objects representing the
+        tokens found in the given input text.
+        """
         self._tokens = []
-        self._lineno = 1
-        self._colno = 1
+        self._line_nbr = 1
+        self._col_nbr = 1
         self._nbr_of_bytes = len(text)
         self._nbr_of_lines = len(text.split(self._newline))
         while text:
@@ -207,7 +214,7 @@ class Alex:
                 return True
 
     def eat_newline(self, text):
-        self._colno = 1
+        self._col_nbr = 1
         self._nbr_of_skipped_chars += len(self._newline)
         return self._eat_text(text, len(self._newline))
 
@@ -222,21 +229,21 @@ class Alex:
         lexeme = text[:n]
         nbr_of_nl = lexeme.count(self._newline)
         if self._newline:
-            self._lineno += nbr_of_nl
+            self._line_nbr += nbr_of_nl
         if nbr_of_nl > 0:
             tail = lexeme.rsplit(self._newline, 1)[1]
-            self._colno = max(1, len(tail))
+            self._col_nbr = max(1, len(tail))
         else:
-            self._colno += len(lexeme)
+            self._col_nbr += len(lexeme)
         return text[n:]
 
     def _add_token(self, name, lexeme):
-        self._tokens.append(Token(name, lexeme, self._lineno, self._colno))
+        self._tokens.append(Token(name, lexeme, self._line_nbr, self._col_nbr))
 
     #
     # Input registration
     #
-    # This code is important but it is moved here so that the logic of the
+    # This code is important, but it is moved here so that the logic of the
     # Lexical Analysis will be more understandable.
     #
 
@@ -265,14 +272,10 @@ class Alex:
         self._validate_operators(ops)
         return ops
 
-    def _sort_operators(self, operators):
-        """
-        Operators are sorted with the longest lexeme first.
-        """
-        ops = list(operators)
-        ops.sort(key=lambda tup: len(tup[1]))
-        ops = ops[::-1]
-        return ops
+    @staticmethod
+    def _sort_operators(operators):
+        """Sort operators by longest lexeme first."""
+        return sorted(operators, key=lambda tup: len(tup[1]), reverse=True)
 
     #
     # Validation of inputs
