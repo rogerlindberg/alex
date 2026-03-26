@@ -18,15 +18,48 @@ class AlexDefinitionError(Exception):
     pass
 
 
+class Token:
+
+    def __init__(self, name, lexeme, line_nbr=0, col_nbr=0):
+        self._name = name
+        self._lexeme = lexeme
+        self._line_nbr = line_nbr
+        self._col_nbr = col_nbr
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def lexeme(self):
+        return self._lexeme
+
+    @property
+    def line_nbr(self):
+        return self._line_nbr
+
+    @property
+    def col_nbr(self):
+        return self._col_nbr
+
+    def __repr__(self):
+        return "%5d:%3d  %-12s %-12s" % (
+            self._line_nbr,
+            self._col_nbr,
+            self._name,
+            self._lexeme,
+        )
+
+
 class Alex:
     """
     Alex scans the input and searches for tokens in the following order:
       1) a newline string
       2) a character to skip
-      3) a regexp word
+      3) an operator word
+      4) a regexp word
             checks if the regexp word is a keyword.
-      4) a keyword
-      5) an operator word
+      5) a keyword
 
     If the beginning of the input matches one of these, a Token object is
     created and the input pointer is moved forward in the input with the same
@@ -34,11 +67,11 @@ class Alex:
 
     If there is no match, the program ends with an exception, except if the
     property skip_unrecognized_chars is set to True. In this case the next
-    character in the input is ignored. The non-matching character is printed
+    character in the input is ignored. The non-matching character, is printed
     to stdout.
 
-    Definitions of keywords, regular expression words and operators are
-    given as input to the tool when it is created or via it's properties.
+    Definitions of keywords, regular expression words and operators, are
+    given as input to the tool when it is created or via its properties.
 
     Usage:
         alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)
@@ -95,6 +128,7 @@ class Alex:
                     Return the unrecognized character as a lexical element.
         """
         self.used_token_keys = set()
+        self.used_token_lexemes = set()
         self.used_token_keys.add("KEYWORD")
         self._tokens = []
         self._line_nbr = 1
@@ -113,22 +147,22 @@ class Alex:
         )
 
     @property
-    def nbr_of_bytes(self):
+    def nbr_of_bytes(self) -> int:
         return self._nbr_of_bytes
 
     @property
-    def nbr_of_lines(self):
+    def nbr_of_lines(self) -> int:
         return self._nbr_of_lines
 
     @property
-    def nbr_of_skipped_chars(self):
+    def nbr_of_skipped_chars(self) -> int:
         return self._nbr_of_skipped_chars
 
     @property
-    def tokens(self):
+    def tokens(self) -> list[Token]:
         return self._tokens
 
-    def scan_file(self, path):
+    def scan_file(self, path: str) -> None:
         """
         This function returns a list of Token objects representing the
         tokens found in the text of the input file.
@@ -137,7 +171,7 @@ class Alex:
             text = f.read()
         self.scan(text)
 
-    def scan(self, text):
+    def scan(self, text: str) -> None:
         """
         This function returns a list of Token objects representing the
         tokens found in the given input text.
@@ -150,9 +184,13 @@ class Alex:
         while text:
             text = self._eat(text)
 
+    #
+    # Private methods
+    #
+
     def _eat(self, text):
         if self._is_newline(text):
-            return self.eat_newline(text)
+            return self._eat_newline(text)
         if self._is_skipchar(text):
             return self._eat_text(text, 1)
         if self._operator_token_created(text):
@@ -212,7 +250,7 @@ class Alex:
                     self._add_token(name, lexeme)
                 return True
 
-    def eat_newline(self, text):
+    def _eat_newline(self, text):
         self._col_nbr = 1
         self._nbr_of_skipped_chars += len(self._newline)
         return self._eat_text(text, len(self._newline))
@@ -253,7 +291,8 @@ class Alex:
         self._validate_regexps(regexps)
         return self._compile_rexeps(regexps)
 
-    def _compile_rexeps(self, regexps):
+    @staticmethod
+    def _compile_rexeps(regexps):
         return [(name, re.compile(reg)) for name, reg in regexps]
 
     def _set_operators(self, operators):
@@ -262,7 +301,7 @@ class Alex:
         a token name and a lexeme description.
         Example:
         (
-            (DOT, '.'),
+            ('DOT', '.'),
         ...
             ('LTOREQ', '<='),
         )
@@ -281,75 +320,38 @@ class Alex:
     #
 
     def _validate_regexps(self, regexps):
-        self._validate_regexps_syntax(regexps)
-        self._validate_regexps_token_names(regexps)
-
-    def _validate_regexps_syntax(self, regexps):
         invalid_regexps = [t for t in regexps if t[1][0] != "^"]
         if invalid_regexps:
             print("A regexp must start with the ^ characters.")
             print("The following items are not following that rule!")
             for regexp in invalid_regexps:
                 print("%-6s '%s'" % regexp)
-                raise SyntaxError("Invalid regexps!")
-
-    def _validate_regexps_token_names(self, regexps):
-        for key, _ in regexps:
+                raise AlexDefinitionError("Invalid regexps!")
+        for key, value in regexps:
             if key in self.used_token_keys:
-                raise ValueError(
-                    "Invalid regexp. The key '%s' has already been used!" % key
-                )
+                msg = f"{self._re_msg_prefix(key, value)} Key '{key}' already in use!"
+                raise AlexDefinitionError(msg)
             self.used_token_keys.add(key)
 
     def _validate_operators(self, operators):
-        self._validate_operators_lexemes(operators)
-        self._validate_operators_keys(operators)
-
-    def _validate_operators_keys(self, operators):
-        for name, _ in operators:
+        for name, lexeme in operators:
             if name in self.used_token_keys:
-                raise AlexDefinitionError(
-                    f"Invalid operator. The key {name} has already been used!"
-                )
+                msg = f"{self._op_msg_prefix(name, lexeme)} Key '{name}' already in use!"
+                raise AlexDefinitionError(msg)
+            if len(lexeme) == 0:
+                msg = f"{self._op_msg_prefix(name, lexeme)} Value length is zero!"
+                raise AlexDefinitionError(msg)
+            if lexeme in self.used_token_lexemes:
+                msg = f"{self._op_msg_prefix(name, lexeme)} Value '{lexeme}' already in use!"
+                raise AlexDefinitionError(msg)
+            self.used_token_lexemes.add(lexeme)
             self.used_token_keys.add(name)
 
-    @staticmethod
-    def _validate_operators_lexemes(operators):
-        for name, lexeme in operators:
-            if len(lexeme) == 0:
-                raise AlexDefinitionError(
-                    f"Invalid operator. Value length is zero for {name}"
-                )
+    def _op_msg_prefix(self, name, value):
+        return self.msg_prefix('Operator', name, value)
 
+    def _re_msg_prefix(self, name, value):
+        return self.msg_prefix('Regexp', name, value)
 
-class Token:
-
-    def __init__(self, name, lexeme, lineno=0, colno=0):
-        self._name = name
-        self._lexeme = lexeme
-        self._lineno = lineno
-        self._colno = colno
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def lexeme(self):
-        return self._lexeme
-
-    @property
-    def lineno(self):
-        return self._lineno
-
-    @property
-    def colno(self):
-        return self._colno
-
-    def __repr__(self):
-        return "%5d:%3d  %-12s %-12s" % (
-            self._lineno,
-            self._colno,
-            self._name,
-            self._lexeme,
-        )
+    def msg_prefix(self, obj, name, value):
+        return f"{obj} ({name}, '{value}'):"
