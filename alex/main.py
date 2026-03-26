@@ -80,7 +80,7 @@ class Alex:
                     a token name and a lexeme description.
                         Example:
                         (
-                            (DOT, '.'),
+                            ('DOT', '.'),
                         ...
                             ('LTOREQ', '<='),
                         )
@@ -92,7 +92,7 @@ class Alex:
                     this behavior by setting this property = True.
 
         treat_unrecognized_chars_as_an_operator:
-                    Return the unrecogognized charachter as a lexical element.
+                    Return the unrecognized character as a lexical element.
         """
         self.used_token_keys = set()
         self.used_token_keys.add("KEYWORD")
