@@ -9,10 +9,12 @@ of input characters that comprise a single token)
 import re
 
 
-USED_TOKEN_KEYS = ["KEYWORD"]
-
 
 class AlexScanError(Exception):
+    pass
+
+
+class AlexDefinitionError(Exception):
     pass
 
 
@@ -92,8 +94,8 @@ class Alex:
         treat_unrecognized_chars_as_an_operator:
                     Return the unrecogognized charachter as a lexical element.
         """
-        USED_TOKEN_KEYS.clear()
-        USED_TOKEN_KEYS.append("KEYWORD")
+        self.used_token_keys = set()
+        self.used_token_keys.add("KEYWORD")
         self._tokens = []
         self._line_nbr = 1
         self._col_nbr = 1
@@ -296,11 +298,11 @@ class Alex:
 
     def _validate_regexps_token_names(self, regexps):
         for key, _ in regexps:
-            if key in USED_TOKEN_KEYS:
+            if key in self.used_token_keys:
                 raise ValueError(
                     "Invalid regexp. The key '%s' has already been used!" % key
                 )
-            USED_TOKEN_KEYS.append(key)
+            self.used_token_keys.add(key)
 
     def _validate_operators(self, operators):
         self._validate_operators_lexemes(operators)
@@ -308,16 +310,17 @@ class Alex:
 
     def _validate_operators_keys(self, operators):
         for name, _ in operators:
-            if name in USED_TOKEN_KEYS:
-                raise ValueError(
-                    "Invalid operator. The key '%s' has already been used!" % name
+            if name in self.used_token_keys:
+                raise AlexDefinitionError(
+                    f'Invalid operator. The key {name} has already been used!'
                 )
-            USED_TOKEN_KEYS.append(name)
+            self.used_token_keys.add(name)
 
-    def _validate_operators_lexemes(self, operators):
+    @staticmethod
+    def _validate_operators_lexemes(operators):
         for name, lexeme in operators:
             if len(lexeme) == 0:
-                raise ValueError("Invalid operator. Value length is zero for %s" % name)
+                raise AlexDefinitionError(f'Invalid operator. Value length is zero for {name}')
 
 
 class Token:
