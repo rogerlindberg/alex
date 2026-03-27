@@ -1,44 +1,26 @@
 # Alex API Reference
 
-This page contains the full API documentation for the `alex` module, including:
-
-- `Token` — represents a lexical token
-- `AlexScanError` and `AlexDefinitionError` — domain‑specific exceptions
-- `Alex` — the main lexer class
-
-All documentation is automatically generated from docstrings using `mkdocstrings`.
+This page contains the full API documentation for the `alex` package.
 
 ---
 
 ## Token
-
-Represents a lexical token produced by the lexer.
-
-::: yourpackage.token.Token
-
----
+::: alex.Token
 
 ## Exceptions
 
-### AlexScanError
-
-Raised when the lexer encounters invalid or unrecognized input.
-
-::: yourpackage.alex.AlexScanError
-
 ### AlexDefinitionError
+::: alex.AlexDefinitionError
+    options:
+        show_bases: true
 
-Raised when token definitions (keywords, regexps, operators) are invalid.
-
-::: yourpackage.alex.AlexDefinitionError
-
----
+### AlexScanError
+::: alex.AlexScanError
+    options:
+        show_bases: true
 
 ## Alex
-
-The main class responsible for scanning input text and producing tokens.
-
-::: yourpackage.alex.Alex
+::: alex.Alex
     handler: python
     options:
       show_source: true

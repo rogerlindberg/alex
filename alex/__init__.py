@@ -102,10 +102,12 @@ class Alex:
         provided when creating the `Alex` instance or via its properties.
 
         Example:
+            ```python
             alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)
             alex.scan_file(path)
             for token in alex.tokens:
                 print(token)
+            ```
         """
 
     def __init__(

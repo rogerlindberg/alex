@@ -1,19 +1,9 @@
-import alex
+from alex import Alex
 
+OPERATORS = (("ADD", "+"), ("SUB", "-"))
+REGEXPS = (("NUM", '^["0123456789"]*'),)
 
-OPERATORS = (
-    ("ADD", "+"),
-    ("SUB", "-"),
-)
-
-REGEXPS = (
-    ("NUM", '^["0123456789"]*'),
-)
-
-lexer = alex.Alex(
-        operators=OPERATORS,
-        regexps=REGEXPS)
-
+lexer = Alex(operators=OPERATORS, regexps=REGEXPS)
 lexer.scan('1 + 2 - 123')
 
 print('----(Tokens found)----------')
