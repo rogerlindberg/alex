@@ -336,10 +336,10 @@ class Alex:
         We compile all regular expressions to get better performance.
         """
         self._validate_regexps(regexps)
-        return self._compile_rexeps(regexps)
+        return self._compile_regexps(regexps)
 
     @staticmethod
-    def _compile_rexeps(regexps):
+    def _compile_regexps(regexps):
         return [(name, re.compile(reg, re.DOTALL)) for name, reg in regexps]
 
     def _set_operators(self, operators):
