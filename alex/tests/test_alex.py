@@ -14,3 +14,54 @@ def test_alex():
     >>> alex._op_msg_prefix('y', 'z')
     "Operator (y, 'z'):"
     """
+
+def test_valid_operators():
+    """
+    ----(The happy case)----
+
+    >>> lexer = alex.Alex()
+    >>> operators = [('ADD', '+'), ('SUB', '-')]
+    >>> lexer._validate_operators(operators)
+    >>> '+' in lexer.used_token_lexemes
+    True
+    >>> '-' in lexer.used_token_lexemes
+    True
+    >>> 'ADD' in lexer.used_token_keys
+    True
+    >>> 'SUB' in lexer.used_token_keys
+    True
+
+    ----(The duplicate key case)----
+
+    >>> lexer = alex.Alex()
+    >>> operators = [('ADD', '+'), ('ADD', '-')]
+    >>> lexer._validate_operators(operators)
+    Traceback (most recent call last):
+    ...
+    alex.main.AlexDefinitionError: Operator (ADD, '-'): Key 'ADD' already in use!
+
+    ----(The duplicate value case)----
+
+    >>> lexer = alex.Alex()
+    >>> operators = [('ADD', '+'), ('SUB', '+')]
+    >>> lexer._validate_operators(operators)
+    Traceback (most recent call last):
+    ...
+    alex.main.AlexDefinitionError: Operator (SUB, '+'): Value '+' already in use!
+
+    ----(The missing value case)----
+
+    >>> lexer = alex.Alex()
+    >>> operators = [('ADD', '+'), ('SUB', '')]
+    >>> lexer._validate_operators(operators)
+    Traceback (most recent call last):
+    ...
+    alex.main.AlexDefinitionError: Operator (SUB, ''): No value given!
+
+    >>> lexer = alex.Alex()
+    >>> operators = [('ADD', '+'), ('SUB', None)]
+    >>> lexer._validate_operators(operators)
+    Traceback (most recent call last):
+    ...
+    alex.main.AlexDefinitionError: Operator (SUB, 'None'): No value given!
+    """

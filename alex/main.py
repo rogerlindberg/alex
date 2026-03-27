@@ -387,8 +387,8 @@ class Alex:
                     f"{self._op_msg_prefix(name, lexeme)} Key '{name}' already in use!"
                 )
                 raise AlexDefinitionError(msg)
-            if len(lexeme) == 0:
-                msg = f"{self._op_msg_prefix(name, lexeme)} Value length is zero!"
+            if lexeme is None or len(lexeme) == 0:
+                msg = f"{self._op_msg_prefix(name, lexeme)} No value given!"
                 raise AlexDefinitionError(msg)
             if lexeme in self.used_token_lexemes:
                 msg = f"{self._op_msg_prefix(name, lexeme)} Value '{lexeme}' already in use!"
