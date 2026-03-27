@@ -1,9 +1,14 @@
 """
-Alex is a lexical analyzer tool. It reads and converts the input to a
-list of Token objects. A Token contains a name end the lexeme as well
-as the position in the input where it was found. (A lexeme is a sequence
-of input characters that comprise a single token)
+Alex is a lexical analyzer tool.
 
+It reads an input string and converts it into a list of `Token` objects.
+Each `Token` contains:
+
+- a name (token type)
+- the lexeme (the exact matched text)
+- the position in the input where it was found
+
+A lexeme is a sequence of input characters that together form a single token.
 """
 
 import re
