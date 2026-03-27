@@ -1,11 +1,12 @@
 [project]
-name = "alex"
-version = "0.1.0"
-description = "A lexer"
+name = "alex-roglin"
+version = "0.1.1"
+description = "A lightweight lexical analyzer"
 authors = [
     { name = "Roger" }
 ]
 readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.11"
 
 [project.urls]

@@ -14,7 +14,7 @@ A lexeme is a sequence of input characters that together form a single token.
 import re
 import codecs
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 class AlexScanError(Exception):
