@@ -1,0 +1,27 @@
+site_name: Alex
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+    - content.code.annotate
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage: usage.md
+  - API:
+      - Alex: api/alex.md
+  - Tutorials:
+      - Getting started: tutorials/getting_started.md
+      - Advanced usage: tutorials/advanced_usage.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
