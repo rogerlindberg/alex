@@ -1,0 +1,1110 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../api/alex/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Usage - Alex</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#usage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Alex" class="md-header__button md-logo" aria-label="Alex" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Alex
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Usage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../installation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Usage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/alex/" class="md-tabs__link">
+          
+  
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Alex" class="md-nav__button md-logo" aria-label="Alex" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Alex
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#minimal-working-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal working example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regular-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regular expressions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regular expressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keywords
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keywords">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processing-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing flags
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing flags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skip_unrecognized_chars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        skip_unrecognized_chars
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#treat_unrecognized_chars_as_an_operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        treat_unrecognized_chars_as_an_operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scan_python_indents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scan_python_indents
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/alex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alex
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#minimal-working-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal working example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regular-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regular expressions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regular expressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keywords
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keywords">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processing-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing flags
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing flags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skip_unrecognized_chars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        skip_unrecognized_chars
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#treat_unrecognized_chars_as_an_operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        treat_unrecognized_chars_as_an_operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scan_python_indents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scan_python_indents
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="usage">Usage</h1>
+<p>This guide shows how to use alex in real code: creating a lexer, 
+defining rules, tokenizing input, and handling common scenarios.</p>
+<h2 id="minimal-working-example">Minimal working example</h2>
+<pre><code>from alex import Alex
+
+
+OPERATORS = ( ("ADD", "+"), ("SUB", "-") )
+REGEXPS = ( ("NUM", '^["0123456789"]*'), )
+
+lexer = Alex(operators=OPERATORS, regexps=REGEXPS)
+lexer.scan('1 + 2 - 123')
+
+print('----(Tokens found)----------')
+for token in lexer.tokens:
+    print(token)
+</code></pre>
+<p>Output:</p>
+<pre><code>----(Tokens found)----------
+    1:  1  NUM          1           
+    1:  3  ADD          +           
+    1:  5  NUM          2           
+    1:  7  SUB          -           
+    1:  9  NUM          123
+</code></pre>
+<h2 id="operators">Operators</h2>
+<p>Operators are fixed strings and are defined as a tuple
+of tuple items.</p>
+<p>Each tuple item has two parts, a <strong>name</strong> and a <strong>lexeme</strong>.
+The <strong>lexeme</strong> describes the text to match in the
+input text and the <strong>name</strong> is your choice of a unique string.</p>
+<h3 id="example">Example</h3>
+<pre><code>OPERATORS = (
+    ("PLUS", "+"),
+    ("MINUS", "-"),
+    ("MUL", "*"),
+    ("DIV", "/"),
+    ("DOT", "."),
+    ("COMMA", ","),
+    ("COLON", ":"),
+    ("SEMI", ";"),
+    ("AT", "@"),
+    ("MOD", "%"),
+    ("EQ", "="),
+    ("GT", "&gt;"),
+    ("LT", "&lt;"),
+    ("LP", "("),
+    ("RP", ")"),
+    ("LBR", "["),
+    ("RBR", "]"),
+    ("LCBR", "{"),
+    ("RCBR", "}"),
+    ("OR", "|"),
+    ("XOR", "^"),
+    ("NOT", "~"),
+    ("AND", "&amp;"),
+    ("ADDEQ", "+="),
+    ("SUBEQ", "-="),
+    ("MULEQ", "*="),
+    ("DIVEQ", "/="),
+    ("IDIVEQ", "//="),
+    ("MODEQ", "%="),
+    ("LSHIFT", "&lt;&lt;"),
+    ("RSHIFT", "&gt;&gt;"),
+    ("IDIV", "//"),
+    ("EXP", "**"),
+    ("GE", "&gt;="),
+    ("LE", "&lt;="),
+    ("TYPE", "-&gt;"),
+    ("NEQ", "!="),
+    ("EQEQ", "=="),
+    ("OREQ", "|="),
+    ("XOREQ", "^="),
+    ("ANDEQ", "&amp;="),
+    ("WALRUS", ":="),
+    ("EXPEQ", "**="),
+    ("LSHIFTEQ", "&lt;&lt;="),
+    ("RSHIFTEQ", "&gt;&gt;="),
+)
+</code></pre>
+<p>Operators are sorted by lexeme length in descending order.</p>
+<p>This means that the longest operator lexeme are matched first.</p>
+<p>Operators are matched before regexps.</p>
+<h2 id="regular-expressions">Regular expressions</h2>
+<p>Regular expressions are also defined as a tuple
+of tuple items.</p>
+<p>Each tuple item has two parts, a <strong>name</strong> and a <strong>regular expression</strong>.
+The <strong>regular expression</strong> describes the text to match in the
+input text and the <strong>name</strong> is your choice of a unique string.</p>
+<h3 id="example_1">Example</h3>
+<pre><code>REGEXPS = (
+    ("TSTR", r'^f?"""(?:\\.|(?!""").)*?"""|^f?\'\'\'(?:\\.|(?!\'\'\').)*?\'\'\''),
+    ("STR", r'^f?"(?:\\.|[^"\\])*"|^f?\'(?:\\.|[^\'\\])*\''),
+    ("NUM", '^["0123456789"]*'),
+    ("REM", "^#[^\n]*"),
+    ("ID", f"^[a-zA-Z_0-9]*"),
+)
+</code></pre>
+<p>Regular expressions are matched in the order that they have
+in the tuple.</p>
+<p>The regular expression must start with the ^-character.</p>
+<h2 id="keywords">Keywords</h2>
+<p>If you want to distinguish an identifier from a language keyword,
+you can define a list of keywords.</p>
+<p>A token for a keyword will be given the name 'KEYWORD'.
+That means that no operator definition or regexp definition must
+have the name 'KEYWORD'.</p>
+<h3 id="example_2">Example</h3>
+<pre><code>from alex import Alex
+
+
+OPERATORS = ( ("ADD", "+"), ("SUB", "-"), ("EQ", "=") )
+REGEXPS = ( ("ID", f"^[a-zA-Z_][a-zA-Z_0-9]*"), ("NUM", '^["0123456789"]*') )
+KEYWORDS = ['if', 'then']
+lexer = Alex(operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS)
+lexer.scan('if x = 2 then y = 3')
+
+print('----(Tokens found)----------')
+for token in lexer.tokens:
+    print(token)
+</code></pre>
+<p>The output will be:</p>
+<pre><code>----(Tokens found)----------
+    1:  1  KEYWORD      if          &lt;---- KEYWORD
+    1:  4  ID           x           &lt;---- ID
+    1:  6  EQ           =           
+    1:  8  NUM          2           
+    1: 10  KEYWORD      then        
+    1: 15  ID           y           
+    1: 17  EQ           =           
+    1: 19  NUM          3
+</code></pre>
+<h2 id="processing-flags">Processing flags</h2>
+<h3 id="skip_unrecognized_chars">skip_unrecognized_chars</h3>
+<p>This flag kan be used to skip all unrecognized characters
+in the input text. The default value is <strong>False</strong>.</p>
+<p>I you for example only are interested in finding all
+identifier names in an input text and skip all the rest,
+you can set skip_unrecognized_chars=True</p>
+<pre><code>from alex import Alex
+
+
+text = "text = self._read_file(path)\nself.scan(text)"
+
+REGEXPS = ( ("ID", f"^[a-zA-Z_][a-zA-Z_0-9]*"),  )
+lexer = Alex(regexps=REGEXPS, skip_unrecognized_chars=True)
+lexer.scan(text)
+
+print('----(Tokens found)----------')
+for token in lexer.tokens:
+    print(token)
+</code></pre>
+<p>Will output:</p>
+<pre><code>----(Tokens found)----------
+    1:  1  ID           text        
+    1:  7  ID           self        
+    1: 11  ID           _read_file  
+    1: 21  ID           path        
+    2:  1  ID           self        
+    2:  5  ID           scan        
+    2:  9  ID           text
+</code></pre>
+<h3 id="treat_unrecognized_chars_as_an_operator">treat_unrecognized_chars_as_an_operator</h3>
+<p>If you want to see all skipped characters in the tokens list
+you can set this flag to True. Default value is <strong>False</strong>.</p>
+<pre><code>from alex import Alex
+
+
+text = "text = self._read_file(path)\nself.scan(text)"
+
+REGEXPS = ( ("ID", f"^[a-zA-Z_][a-zA-Z_0-9]*"),  )
+lexer = Alex(regexps=REGEXPS, treat_unrecognized_chars_as_an_operator=True)
+lexer.scan(text)
+
+print('----(Tokens found)----------')
+for token in lexer.tokens:
+    print(token)
+</code></pre>
+<p>Will output:</p>
+<pre><code>----(Tokens found)----------
+    1:  1  ID           text        
+    1:  6  UNRECOGNIZED-CHAR =           
+    1:  8  ID           self        
+    1: 12  UNRECOGNIZED-CHAR .           
+    1: 13  ID           _read_file  
+    1: 23  UNRECOGNIZED-CHAR (           
+    1: 24  ID           path        
+    1: 28  UNRECOGNIZED-CHAR )           
+    2:  1  ID           self        
+    2:  5  UNRECOGNIZED-CHAR .           
+    2:  6  ID           scan        
+    2: 10  UNRECOGNIZED-CHAR (           
+    2: 11  ID           text        
+    2: 15  UNRECOGNIZED-CHAR )
+</code></pre>
+<h3 id="scan_python_indents">scan_python_indents</h3>
+<p>With this flag set to <strong>True</strong> (default = <strong>False</strong>), you can get
+indentation information as an output token.</p>
+<pre><code>from alex import Alex
+
+text = "    text = self._read_file(path)\n    self.scan(text)"
+
+REGEXPS = (("ID", f"^[a-zA-Z_][a-zA-Z_0-9]*"),)
+lexer = Alex(regexps=REGEXPS, skip_unrecognized_chars=True, scan_python_indents=True)
+lexer.scan(text)
+
+print('----(Tokens found)----------')
+for token in lexer.tokens:
+    print(token)
+</code></pre>
+<p>Output:</p>
+<pre><code>----(Tokens found)----------
+    1:  1  INDENT       4           
+    1:  5  ID           text        
+    1: 11  ID           self        
+    1: 15  ID           _read_file  
+    1: 25  ID           path        
+    2:  1  INDENT       4           
+    2:  5  ID           self        
+    2:  9  ID           scan        
+    2: 13  ID           text
+</code></pre>
+<p>This means that 'INDENT' also is a reserver word like 'KEYWORD'
+and cant be used for your own definitions.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
