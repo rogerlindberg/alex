@@ -35,5 +35,11 @@ ENV/
 # IDE files
 .idea/
 
+# Rendered files
+/site
+/dist
+/alex.egg-info
+/alex_roglin.egg_info
+
 
 
