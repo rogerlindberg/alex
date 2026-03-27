@@ -129,9 +129,8 @@ class Alex:
         treat_unrecognized_chars_as_an_operator:
                     Return the unrecognized character as a lexical element.
         """
-        self.used_token_keys = set()
+        self.used_token_keys = {'KEYWORD', 'INDENT'}
         self.used_token_lexemes = set()
-        self.used_token_keys.add("KEYWORD")
         self._tokens = []
         self._line_nbr = 1
         self._col_nbr = 1
@@ -148,8 +147,6 @@ class Alex:
             treat_unrecognized_chars_as_an_operator
         )
         self._scan_python_indents = scan_python_indents
-        if scan_python_indents:
-            self.used_token_keys.add('INDENT')
 
     @property
     def nbr_of_bytes(self) -> int:
