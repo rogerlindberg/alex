@@ -16,35 +16,55 @@ import codecs
 
 
 class AlexScanError(Exception):
+    """Raised when the lexer encounters invalid input during scanning."""
     pass
 
 
 class AlexDefinitionError(Exception):
+    """Raised when definitions or lexer configuration are invalid."""
     pass
 
 
 class Token:
+    """Represents a lexical token produced by the Alex lexer.
 
-    def __init__(self, name, lexeme, line_nbr=0, col_nbr=0):
+    A token consists of:
+    - a name (token type)
+    - the lexeme (the exact matched text)
+    - the line number where it was found
+    - the column number where it was found
+
+    Attributes:
+        name: The token type.
+        lexeme: The matched text.
+        line_nbr: Line number in the input (0-based or 1-based depending on lexer).
+        col_nbr: Column number in the input.
+    """
+
+    def __init__(self, name: str, lexeme: str, line_nbr: int = 0, col_nbr: int = 0):
         self._name = name
         self._lexeme = lexeme
         self._line_nbr = line_nbr
         self._col_nbr = col_nbr
 
     @property
-    def name(self):
+    def name(self) -> str:
+        """The token type."""
         return self._name
 
     @property
-    def lexeme(self):
+    def lexeme(self) -> str:
+        """The exact matched text."""
         return self._lexeme
 
     @property
-    def line_nbr(self):
+    def line_nbr(self) -> int:
+        """The line number where the token was found."""
         return self._line_nbr
 
     @property
-    def col_nbr(self):
+    def col_nbr(self) -> int:
+        """The column number where the token was found."""
         return self._col_nbr
 
     def __repr__(self):
