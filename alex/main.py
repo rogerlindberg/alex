@@ -78,32 +78,33 @@ class Token:
 
 class Alex:
     """
-    Alex scans the input and searches for tokens in the following order:
-      1) a newline string
-      2) a character to skip
-      3) an operator word
-      4) a regexp word
-            checks if the regexp word is a keyword.
-      5) a keyword
+        Alex is a lexical analyzer that scans input text and produces a sequence
+        of `Token` objects.
 
-    If the beginning of the input matches one of these, a Token object is
-    created and the input pointer is moved forward in the input with the same
-    length as the found lexeme.
+        The scanner attempts to match the input in the following order:
 
-    If there is no match, the program ends with an exception, except if the
-    property skip_unrecognized_chars is set to True. In this case the next
-    character in the input is ignored. The non-matching character, is printed
-    to stdout.
+            1. newline string
+            2. characters to skip
+            3. operator words
+            4. regular expression words (checked against keywords)
+            5. keywords
 
-    Definitions of keywords, regular expression words and operators, are
-    given as input to the tool when it is created or via its properties.
+        When a match is found, a `Token` is created and the input pointer is
+        advanced by the length of the matched lexeme.
 
-    Usage:
-        alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)
-        alex.scanfile(path)
-        for token in alex.tokens:
-            print(token)
-    """
+        If no match is found, an exception is raised unless
+        `skip_unrecognized_chars` is set to True. In that case, the character is
+        ignored and printed to stdout.
+
+        Definitions for keywords, regular expression words, and operators are
+        provided when creating the `Alex` instance or via its properties.
+
+        Example:
+            alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)
+            alex.scan_file(path)
+            for token in alex.tokens:
+                print(token)
+        """
 
     def __init__(
         self,
@@ -117,42 +118,42 @@ class Alex:
         scan_python_indents=False
     ):
         """
-        skipchars:  A string containing all characters that are to be
-                    skipped from the input.
+        Initialize the Alex lexer.
 
-        newline:    is a string representing a line-break in the input text.
-                    This information is used four counting lines in the input.
-                    If you don't need line-counting, newline can be set to None.
-                    The default value is '\n'.
+        Args:
+            skip_chars:
+                A string containing characters that should be skipped during
+                scanning (typically whitespace).
 
-        kewords:    Is a list (or tuple) of strings that represents keywords
-                    of the input language. The token name for all keywords is
-                    KEYWORD. The default value for keywords is an empty list.
+            newline:
+                A string representing a line break in the input. Used for
+                line counting. Set to None to disable line counting.
 
-        regexps:    Is a list (or tuple) of tuples, where each tuple has a
-                    token name and a regular expression specifying the lexeme.
-                    The regular expression must start with the ^ character.
-                    If a regular expression matches the input and if the matched
-                    word also is a keyword it will be treated as a keyword.
+            keywords:
+                A list or tuple of keyword strings. All keywords produce
+                tokens with the name "KEYWORD".
 
-        operators:  is a tuple of tuple items. A tuple item has two values,
-                    a token name and a lexeme description.
-                        Example:
-                        (
-                            ('DOT', '.'),
-                        ...
-                            ('LTOREQ', '<='),
-                        )
-                    All token names specified must be unique!
+            regexps:
+                A list or tuple of `(token_name, regexp)` pairs. Each regexp
+                must begin with `^`. If a regexp matches and the matched
+                lexeme is also a keyword, it is treated as a keyword.
 
-        skip_unrecognized_chars:
-                    By default, the program stops if it encounters an
-                    unrecognized character in the input. You can change
-                    this behavior by setting this property = True.
+            operators:
+                A list or tuple of `(token_name, lexeme)` pairs. All token
+                names must be unique.
 
-        treat_unrecognized_chars_as_an_operator:
-                    Return the unrecognized character as a lexical element.
+            skip_unrecognized_chars:
+                If True, unrecognized characters are ignored instead of
+                raising an exception.
+
+            treat_unrecognized_chars_as_an_operator:
+                If True, unrecognized characters are returned as tokens.
+
+            scan_python_indents:
+                If True, indentation tokens are generated similar to Python's
+                indentation rules.
         """
+
         self.used_token_keys = {'KEYWORD', 'INDENT'}
         self.used_token_lexemes = set()
         self._tokens = []
