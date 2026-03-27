@@ -13,7 +13,6 @@ A lexeme is a sequence of input characters that together form a single token.
 
 import re
 import codecs
-from typing import Any, Generator
 
 
 class AlexScanError(Exception):
@@ -195,7 +194,7 @@ class Alex:
         while text:
             text = self._eat(text)
 
-    def generate(self, text: str) -> Generator[Any, Any, None]:
+    def generate(self, text: str):
         """
         This function returns a list of Token objects representing the
         tokens found in the given input text.
