@@ -68,7 +68,7 @@ If this prints a list of tokens, your installation is working.
 
 If you want the latest development version or plan to contribute:
 
-    git clone https://github.com/<your-username>/alex.git
+    git clone https://github.com/rogerlindberg/alex.git
     cd alex
     pip install -e .
 
@@ -90,7 +90,7 @@ To remove Alex from your environment:
 ### Common issues:
 
 - **Python version mismatch**<br>
-Ensure you are running Python 3.8 or later.
+Ensure you are running Python 3.11 or later.
 
 - **Virtual environment not activated**<br>
 If installation appears successful but import alex fails, verify that your virtual environment is active.
