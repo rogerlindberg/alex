@@ -24,3 +24,17 @@ plugins:
             docstring_style: google
             show_source: true
 
+# Don't show warnings like
+# │  ⚠  Warning from the Material for MkDocs team
+# │
+# │  MkDocs 2.0, the underlying framework of Material for MkDocs,
+# │  will introduce backward-incompatible changes, including:
+# │
+# │  × All plugins will stop working – the plugin system has been removed
+# │  × All theme overrides will break – the theming system has been rewritten
+# │  × No migration path exists – existing projects cannot be upgraded
+# │  × Closed contribution model – community members can't report bugs
+# │  × Currently unlicensed – unsuitable for production use
+extra:
+  consent:
+    warnings: false
