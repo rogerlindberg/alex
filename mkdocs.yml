@@ -13,6 +13,8 @@ nav:
   - Usage: usage.md
   - API:
       - Alex: api/alex.md
+  - Samples:
+      - Count identifier occurrences: samples/count_identifiers_occurrence.md
 
 
 plugins:
