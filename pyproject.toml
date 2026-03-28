@@ -1,16 +1,16 @@
 [project]
 name = "alex-roglin"
-version = "0.1.1"
+version = "0.1.2"
 description = "A lightweight lexical analyzer"
 authors = [
     { name = "Roger" }
 ]
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.11"
 
 [project.urls]
-Homepage = "https://example.com"
+Homepage = "https://rogerlindberg.github.io/alex"
 
 [build-system]
 requires = ["setuptools"]
