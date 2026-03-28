@@ -6,7 +6,7 @@ This guide explains how to install Alex, verify that it works correctly, and opt
 
 ## Requirements
 
-- Python 3.8 or later  
+- Python 3.11 or later  
 - A standard Python environment (virtual environments recommended)  
 - No additional dependencies — Alex is lightweight and self‑contained
 
