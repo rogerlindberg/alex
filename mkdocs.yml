@@ -15,6 +15,7 @@ nav:
       - Alex: api/alex.md
   - Samples:
       - Count identifier occurrences: samples/count_identifiers_occurrence.md
+      - Determine functions nesting levels: samples/python_function_nesting_levels.md
 
 
 plugins:
