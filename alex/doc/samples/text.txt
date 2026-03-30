@@ -1,0 +1,24 @@
+Kundinformation API:er
+Allmänt
+Ett av målen med Lifecare, är att systemet ska vara ett så öppet system som möjligt och bidra till
+kommunens digitala ekosystem. För att leva upp till det målet tillhandahåller vi publika API:er
+som andra leverantörers system kan göra REST-anrop mot för att bygga integrationer. Att
+tillhandahålla API:er på det här sättet innebär att mottagande system bygger själva integrationen
+och vi tror att det på så sätt kan bli bättre anpassat för respektive aktörs behov. Varje API-paket
+licenseras med en nyckel som passar mot mottagande system.
+Då data via API:et lämnar Lifecare upphör också det ansvar Tieto har då det gäller sekretess,
+säkerhet, support osv. Tietos ansvar är begränsat till att leverera avtalade API:er till Kunden,
+eller till tredje part på begäran av Kunden, vid avtalad tidpunkt. Kunden ansvarar för hantering
+och användande av information/data som genom informationsuttag och/eller informationsutbyte
+lämnar verksamhetssystemet.
+Som standard kräver Lifecare Welfare API Services att den externa aktören identifierar sig med
+ett klientcertifikat. Se mer i avsnitt 6.9 i den Tekniska specificationen
+https://doc.service.tieto.com/teknikspec/
+Ifall stora mängder data skall läsas ut ur Lifecare vid ett och samma tillfälle är det kommunens
+ansvar att tänka till runt svarstider, belastning osv.
+För att läsa detaljer kring vad respektive API innehåller så finns en webbsida som alltid
+uppdateras i takt med att vi utvecklar nya, förändrar och förbättrar befintliga API:er. Den finns
+på: https://prod-lcsse.service.tieto.com/WE.EC.Integration.Host/
+Ifall API-texten börjar med GET så innebär det att mottagande system kan hämta data ur
+Lifecare. Börjar API:et med POST så innebär det att mottagande system kan skriva in data till
+Lifecare.
