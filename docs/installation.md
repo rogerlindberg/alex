@@ -81,7 +81,7 @@ source code and immediately test changes
 
 To remove Alex from your environment:
 
-    pip uninstall alex
+    pip uninstall alex-lexer
 
 ---
 
@@ -93,12 +93,13 @@ To remove Alex from your environment:
 Ensure you are running Python 3.11 or later.
 
 - **Virtual environment not activated**<br>
-If installation appears successful but import alex fails, verify that your virtual environment is active.
+If installation appears successful but import alex fails, verify that 
+your virtual environment is active.
  
 - **Old version still installed**<br>
-Use pip install --upgrade alex to ensure you have the latest release.
+Use pip install --upgrade alex-lexer to ensure you have the latest release.
 
 If problems persist, consider reinstalling:
 
-    pip uninstall alex
-    pip install alex
+    pip uninstall alex-lexer
+    pip install alex-lexer
