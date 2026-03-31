@@ -18,7 +18,7 @@ Alex runs on all major platforms: Linux, macOS, and Windows.
 
 The easiest way to install Alex is from PyPI:
 
-    pip install alex
+    pip install alex-lexer
 
 ---
 
@@ -26,7 +26,7 @@ The easiest way to install Alex is from PyPI:
 
 To upgrader to latest version
 
-    pip install --upgrade alex
+    pip install --upgrade alex-lexer
 
 ---
 

@@ -46,7 +46,7 @@ and extract the tokens you define.
 
 Install directly from PyPI:
 
-    pip install alex
+    pip install alex-lexer
 
 
 ## Usage
