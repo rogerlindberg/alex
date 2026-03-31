@@ -1,6 +1,6 @@
 # Alex API Reference
 
-This page contains the full API documentation for the `alex` package.
+This page contains the full API documentation for the `alex-lexer` package.
 
 ---
 
