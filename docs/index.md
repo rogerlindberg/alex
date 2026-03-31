@@ -1,6 +1,7 @@
 # Alex — A Lexical Analysis Toolkit for Python
 
-Alex is a lexical analyzer tool. It reads an input string and converts it into a list of `Token` objects.  
+Alex is a lexical analyzer tool. It reads an input string and 
+converts it into a list of `Token` objects.  
 Each `Token` contains:
 
 - a name (token type)
@@ -9,7 +10,8 @@ Each `Token` contains:
 
 A *lexeme* is a sequence of input characters that together form a single token.
 
-Alex provides a clean, predictable, and idiomatic Python API for building lexers that are easy to understand, test, and extend.
+Alex provides a clean, predictable, and idiomatic Python API for 
+building lexers that are easy to understand, test, and extend.
 
 ---
 

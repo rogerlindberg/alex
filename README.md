@@ -2,24 +2,52 @@
 
 **alex** is a lexical analyzer tool.
 
-It reads and converts the input to a
-list of **Token** objects. 
+It reads an input string and converts it into a list of **Token** 
+objects.  
 
-A **Token** contains a name end the lexeme as well
-as the position in the input where it was found. (A lexeme is a sequence
-of input characters that comprise a single token)
+A **Token** contains:
+
+- a name (token type)
+- the lexeme (the exact matched text)
+- the position in the input where it was found
+
+A **lexeme** is a sequence of input characters that together form a 
+single token.
+
+**alex** provides a clean, predictable, and idiomatic Python API for 
+building lexers that are easy to understand, test, and extend.
+
+With the right composition of input rules, it can scan any text file 
+and extract the tokens you define.
 
 ---
 
+## Key Features
+
+- **Straightforward token model**  
+  Every token carries its type, matched text, and position.
+
+- **Composable rule system**  
+  Define patterns using regular expressions and map them to token classes.
+
+- **Deterministic lexer pipeline**  
+  Input is processed left‑to‑right with clear, explicit behavior.
+
+- **Domain‑specific exceptions**  
+  Errors are raised with meaningful context to simplify debugging.
+
+- **Minimal dependencies**  
+  Lightweight and suitable for both small utilities and large applications.
+
+---
+
+
 ## 🚀 Installation
 
-Installera direkt från PyPI:
+Install directly from PyPI:
 
     pip install alex
 
-or in development mode:
-
-    pip install -e .
 
 ## Usage
 
@@ -32,7 +60,7 @@ Instantiate the class **Alex** and call one of the functions
 
 The scan functions returns a list of Tokens while the
 generate functions creates a generator that returns one 
-Token at a time.
+**Token** at a time.
 
 When instantiating the class **Alex** you
 must provide definitions of the tokens
@@ -83,7 +111,7 @@ in witch the lexical token was found.
 
 The third column contains the name of the token
 given in the definitions and the last column
-contains the lexeme of the lexcial token.
+contains the lexeme of the token.
 
 ## Example - keywords.py
 
@@ -140,7 +168,7 @@ When an error occurs one of the following exceptions is issued.
 with your definitions and **AlexScanError** is raised when a
 problem is detected during the scanning of the input text.
 
-## Definition error example - def_error.py
+## AlexDefinitionError example - def_error.py
 
     import alex
     
@@ -170,7 +198,7 @@ The output is
     Operator (ADD, '-'): Key 'ADD' already in use!
 
 
-## Scan error example - scan_error.py
+## AlexScanError example - scan_error.py
 
     import alex
     
@@ -237,7 +265,7 @@ or you can do
     lexer = alex.Alex(
         operators=OPERATORS,
         regexps=REGEXPS,
-        skip_unrecognized_chars=True)
+        treat_unrecognized_chars_as_an_operator=True)
 
 and the output will be:
 
@@ -271,7 +299,7 @@ And the output will be:
 
 ## Regular expressions
 
-In the definitions of reqular expressions
+In the definitions of regular expressions
 the **^** character must be the first
 character in the expression.
 
@@ -290,14 +318,14 @@ will be silently removed.
         'then',
     ]
 
-will be converted to a set.
+by converting the keywords to a set.
 
     {'if', 'then'}
     
 
 ## The Token class
 
-A Token class object has four attributes.
+A **Token** class object has four attributes.
 
 - name
 - lexeme
