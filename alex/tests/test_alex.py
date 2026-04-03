@@ -1,7 +1,7 @@
 import alex
 
 
-def test_alex():
+def test_error_message_prefix():
     """
     >>> alex = alex.Alex()
 
@@ -15,7 +15,7 @@ def test_alex():
     "Operator (y, 'z'):"
     """
 
-def test_valid_operators():
+def test_validate_operators():
     """
     ----(The happy case)----
 
@@ -64,4 +64,37 @@ def test_valid_operators():
     Traceback (most recent call last):
     ...
     alex.AlexDefinitionError: Operator (SUB, 'None'): No value given!
+    """
+
+
+def test_validate_regexpss():
+    """
+    ----(The happy case)----
+
+    >>> lexer = alex.Alex()
+    >>> regexps = (("ID", f"^[a-zA-Z_0-9]*"),)
+    >>> lexer._validate_regexps(regexps)
+    >>> 'ID' in lexer.used_token_keys
+    True
+
+    ----(Missing start char)----
+
+    >>> lexer = alex.Alex()
+    >>> regexps = (("ID", f"[a-zA-Z_0-9]*"),)
+    >>> lexer._validate_regexps(regexps)
+    Traceback (most recent call last):
+    ...
+    alex.AlexDefinitionError: A regexp must start with the ^ character.
+
+   ----(Already in use)----
+
+    >>> lexer = alex.Alex()
+    >>> operators = [('ID', '+'), ('SUB', '-')]
+    >>> lexer._validate_operators(operators)
+    >>> regexps = (("ID", f"^[a-zA-Z_0-9]*"),)
+    >>> lexer._validate_regexps(regexps)
+    Traceback (most recent call last):
+    ...
+    alex.AlexDefinitionError: Regexp (ID, '^[a-zA-Z_0-9]*'): Key 'ID' already in use!
+
     """

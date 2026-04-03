@@ -401,11 +401,11 @@ class Alex:
     def _validate_regexps(self, regexps):
         invalid_regexps = [t for t in regexps if t[1][0] != "^"]
         if invalid_regexps:
-            print("A regexp must start with the ^ characters.")
+            msg = "A regexp must start with the ^ character."
             print("The following items are not following that rule!")
             for regexp in invalid_regexps:
                 print("%-6s '%s'" % regexp)
-                raise AlexDefinitionError("Invalid regexps!")
+            raise AlexDefinitionError(msg)
         for key, value in regexps:
             if key in self.used_token_keys:
                 msg = f"{self._re_msg_prefix(key, value)} Key '{key}' already in use!"
