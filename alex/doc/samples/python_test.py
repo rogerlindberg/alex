@@ -147,7 +147,7 @@ def calc_points(func_node, result):
         ):
             func_node.points += 1
     result.append((func_node.name, func_node.points))
-    for func in func_node.func_nodes:
+    for func in func_node.funcs:
         calc_points(func, result)
 
 
