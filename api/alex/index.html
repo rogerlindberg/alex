@@ -1881,7 +1881,10 @@ for token in alex.tokens:
 <span class="normal">432</span>
 <span class="normal">433</span>
 <span class="normal">434</span>
-<span class="normal">435</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Alex</span><span class="p">:</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Alex</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alex is a lexical analyzer that scans input text and produces a sequence</span>
 <span class="sd">        of `Token` objects.</span>
@@ -2129,8 +2132,11 @@ for token in alex.tokens:
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_eat_indent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
-            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_token</span><span class="p">(</span><span class="s1">&#39;INDENT&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 
@@ -2201,11 +2207,11 @@ for token in alex.tokens:
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_regexps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regexps</span><span class="p">):</span>
         <span class="n">invalid_regexps</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">regexps</span> <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;^&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">invalid_regexps</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A regexp must start with the ^ characters.&quot;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;A regexp must start with the ^ character.&quot;</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The following items are not following that rule!&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">regexp</span> <span class="ow">in</span> <span class="n">invalid_regexps</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%-6s</span><span class="s2"> &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">regexp</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="n">AlexDefinitionError</span><span class="p">(</span><span class="s2">&quot;Invalid regexps!&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">AlexDefinitionError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">regexps</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">used_token_keys</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_re_msg_prefix</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> Key &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; already in use!&quot;</span>
