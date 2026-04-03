@@ -1,6 +1,6 @@
 [project]
 name = "alex-lexer"
-version = "0.1.4"
+version = "0.1.5"
 description = "A lightweight lexical analyzer"
 authors = [
     { name = "Roger Lindberg" }
