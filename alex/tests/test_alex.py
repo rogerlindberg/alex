@@ -3,6 +3,15 @@ import pytest
 import alex
 
 
+def test_scan():
+    operators = (("ADD", "+"), ("SUB", "-"))
+    regexps = (("NUM", '^["0123456789"]*'),)
+    lexer = alex.Alex(operators=operators, regexps=regexps)
+    lexer.scan('17 + 5 - 12')
+    lexemes = [t.lexeme for t in lexer.tokens]
+    assert ''.join(lexemes) == '17+5-12'
+
+
 def test_validate_operators_accepts_unique_names_and_lexemes():
     lexer = alex.Alex()
     lexer._validate_operators([("ADD", "+"), ("SUB", "-")])
