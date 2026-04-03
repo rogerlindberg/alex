@@ -7,16 +7,16 @@ class FuncNode:
         if def_token:
             self.name = name_token.lexeme
             self.tokens = [def_token, name_token]
-        self.func_nodes = []
+        self.funcs = []
 
     def __repr__(self):
-        return f"Name:{self.name} #Tokens: {len(self.tokens)} #Funcs: {len(self.func_nodes)}"
+        return f"Name:{self.name} NbrOfTokens: {len(self.tokens)} NbrOfFuncs: {len(self.funcs)}"
 
     def append_token(self, token):
         self.tokens.append(token)
 
     def append_func_node(self, func_node):
-        self.func_nodes.append(func_node)
+        self.funcs.append(func_node)
 
     def print_node(self, indent):
         print(f'{" " * indent}{self}')
@@ -25,9 +25,9 @@ class FuncNode:
         for token in self.tokens:
             print(f'{" " * indent}{token}')
         print()
-        if len(self.func_nodes) > 0:
+        if len(self.funcs) > 0:
             print(f'{" " * indent}----(Functions)----')
-            for node in self.func_nodes:
+            for node in self.funcs:
                 node.print_node(indent + 4)
 
 
@@ -37,15 +37,15 @@ def create_python_function_tree(gen):
         token = gen.__next__()
         while True:
             if token.lexeme == Const.DEF:
-                token = _parse_function(gen, token, token.col_nbr, node)
+                token = _parse_function(gen, token, node)
                 if token is None:
-                    return nodes(node.func_nodes)
+                    return nodes(node.funcs)
                 continue
             else:
                 pass
             token = gen.__next__()
     except StopIteration:
-        return nodes(node.func_nodes)
+        return nodes(node.funcs)
 
 
 def nodes(func_nodes):
@@ -54,17 +54,19 @@ def nodes(func_nodes):
         nodes(node)
 
 
-def _parse_function(gen, def_token, col_nbr, node):
+def _parse_function(gen, def_token, node):
     try:
+        col_nbr = def_token.col_nbr
         token = gen.__next__()  # Function name token
         func_node = FuncNode(def_token, token)
         node.append_func_node(func_node)
         token = gen.__next__()
         while token.col_nbr > col_nbr:
             if token.lexeme == Const.DEF:
-                t = _parse_function(gen, token, token.col_nbr, func_node)
-                if t and t.col_nbr > col_nbr:
-                    func_node.append_token(t)
+                token = _parse_function(gen, token, func_node)
+                if token and token.lexeme == Const.DEF:
+                    continue
+                func_node.append_token(token)
             else:
                 func_node.append_token(token)
             token = gen.__next__()
