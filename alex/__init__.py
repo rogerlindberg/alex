@@ -326,8 +326,11 @@ class Alex:
 
     def _eat_indent(self, text):
         count = 0
-        while text and text[count] == ' ':
-            count += 1
+        try:
+            while text and text[count] == ' ':
+                count += 1
+        except IndexError:
+            pass
         self._add_token('INDENT', str(count))
         return self._eat_text(text, count)
 
