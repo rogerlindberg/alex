@@ -38,7 +38,7 @@ def test_valid_operators():
     >>> lexer._validate_operators(operators)
     Traceback (most recent call last):
     ...
-    alex.main.AlexDefinitionError: Operator (ADD, '-'): Key 'ADD' already in use!
+    alex.AlexDefinitionError: Operator (ADD, '-'): Key 'ADD' already in use!
 
     ----(The duplicate value case)----
 
@@ -47,7 +47,7 @@ def test_valid_operators():
     >>> lexer._validate_operators(operators)
     Traceback (most recent call last):
     ...
-    alex.main.AlexDefinitionError: Operator (SUB, '+'): Value '+' already in use!
+    alex.AlexDefinitionError: Operator (SUB, '+'): Value '+' already in use!
 
     ----(The missing value case)----
 
@@ -56,12 +56,12 @@ def test_valid_operators():
     >>> lexer._validate_operators(operators)
     Traceback (most recent call last):
     ...
-    alex.main.AlexDefinitionError: Operator (SUB, ''): No value given!
+    alex.AlexDefinitionError: Operator (SUB, ''): No value given!
 
     >>> lexer = alex.Alex()
     >>> operators = [('ADD', '+'), ('SUB', None)]
     >>> lexer._validate_operators(operators)
     Traceback (most recent call last):
     ...
-    alex.main.AlexDefinitionError: Operator (SUB, 'None'): No value given!
+    alex.AlexDefinitionError: Operator (SUB, 'None'): No value given!
     """
