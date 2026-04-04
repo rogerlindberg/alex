@@ -9,11 +9,6 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
 
-[project.optional-dependencies]
-test = [
-    "pytest>=8.0",
-]
-
 [project.urls]
 Homepage = "https://rogerlindberg.github.io/alex"
 
@@ -21,7 +16,20 @@ Homepage = "https://rogerlindberg.github.io/alex"
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "build>=1.4.2",
+]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.6",
+]
+
+
 [tool.pytest.ini_options]
 testpaths = [
-    "alex/tests",
+    "tests",
 ]
+[tool.mkdocs]
+site_name = "alex-lexer"
