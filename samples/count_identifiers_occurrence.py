@@ -5,7 +5,7 @@ sorted top list to stdout.
 In this example, the input is this file and the expected output is:
 
     ----(Counting 5 most common occurrences of identifier names)----------
-      3 lexer
+      7 lexer
       3 token
       2 Counter
       2 alex

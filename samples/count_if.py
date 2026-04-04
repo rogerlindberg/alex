@@ -92,7 +92,6 @@ KEYWORDS = [
     "while",
     "with",
     "yield",
-
     "self",
     "dict",
     "set",
@@ -109,5 +108,11 @@ lexer = alex.Alex(
 lexer.scan_file("test.py")
 
 print("----(Counting nbr of if-statements)----------")
-occurrences = len([token.lexeme for token in lexer.tokens if token.name == 'KEYWORD' and token.lexeme == 'if'])
-print(f'Number of occurrences of "if"-statments: {occurrences}')
+occurrences = len(
+    [
+        token
+        for token in lexer.tokens
+        if token.name == "KEYWORD" and token.lexeme == "if"
+    ]
+)
+print(f'Number of occurrences of "if"-statements: {occurrences}')

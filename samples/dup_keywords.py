@@ -1,4 +1,10 @@
+"""
+Duplicated keywords are silently ignored.
+
+"""
+
 import alex
+
 
 OPERATORS = (
     ("EQ", "="),
@@ -9,19 +15,18 @@ REGEXPS = (
     ("NUM", '^["0123456789"]*'),
 )
 KEYWORDS = [
-    'if',
-    'if',
-    'then',
+    "if",
+    "if",
+    "then",
 ]
 
-lexer = alex.Alex(
-    operators=OPERATORS,
-    regexps=REGEXPS,
-    keywords=KEYWORDS)
+lexer = alex.Alex(operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS)
 
-lexer.scan('''if foo == bar 
-then x = 17''')
+lexer.scan(
+    """if foo == bar 
+then x = 17"""
+)
 
-print('----(Tokens found)----------')
+print("----(Tokens found)----------")
 for token in lexer.tokens:
     print(token)

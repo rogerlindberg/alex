@@ -14,16 +14,19 @@ A lexeme is a sequence of input characters that together form a single token.
 import re
 import codecs
 
-__version__ = '0.1.1'
+
+version = "0.1.6"
 
 
 class AlexScanError(Exception):
     """Raised when the lexer encounters invalid input during scanning."""
+
     pass
 
 
 class AlexDefinitionError(Exception):
     """Raised when definitions or lexer configuration are invalid."""
+
     pass
 
 
@@ -80,35 +83,35 @@ class Token:
 
 class Alex:
     """
-        Alex is a lexical analyzer that scans input text and produces a sequence
-        of `Token` objects.
+    Alex is a lexical analyzer that scans input text and produces a sequence
+    of `Token` objects.
 
-        The scanner attempts to match the input in the following order:
+    The scanner attempts to match the input in the following order:
 
-            1. newline string
-            2. characters to skip
-            3. operator words
-            4. regular expression words (checked against keywords)
-            5. keywords
+        1. newline string
+        2. characters to skip
+        3. operator words
+        4. regular expression words (checked against keywords)
+        5. keywords
 
-        When a match is found, a `Token` is created and the input pointer is
-        advanced by the length of the matched lexeme.
+    When a match is found, a `Token` is created and the input pointer is
+    advanced by the length of the matched lexeme.
 
-        If no match is found, an exception is raised unless
-        `skip_unrecognized_chars` is set to True. In that case, the character is
-        ignored and printed to stdout.
+    If no match is found, an exception is raised unless
+    `skip_unrecognized_chars` is set to True. In that case, the character is
+    ignored and printed to stdout.
 
-        Definitions for keywords, regular expression words, and operators are
-        provided when creating the `Alex` instance or via its properties.
+    Definitions for keywords, regular expression words, and operators are
+    provided when creating the `Alex` instance or via its properties.
 
-        Example:
-            ```python
-            alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)
-            alex.scan_file(path)
-            for token in alex.tokens:
-                print(token)
-            ```
-        """
+    Example:
+        ```python
+        alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)
+        alex.scan_file(path)
+        for token in alex.tokens:
+            print(token)
+        ```
+    """
 
     def __init__(
         self,
@@ -119,7 +122,7 @@ class Alex:
         operators=None,
         skip_unrecognized_chars=False,
         treat_unrecognized_chars_as_an_operator=False,
-        scan_python_indents=False
+        scan_python_indents=False,
     ):
         """
         Initialize the Alex lexer.
@@ -158,7 +161,7 @@ class Alex:
                 indentation rules.
         """
 
-        self.used_token_keys = {'KEYWORD', 'INDENT'}
+        self.used_token_keys = {"KEYWORD", "INDENT"}
         self.used_token_lexemes = set()
         self._tokens = []
         self._line_nbr = 1
@@ -281,7 +284,7 @@ class Alex:
                 )
 
     def _is_indent(self, text):
-        return self._col_nbr == 1 and text and text[0] == ' '
+        return self._col_nbr == 1 and text and text[0] == " "
 
     def _is_newline(self, text):
         return self._newline and text[: len(self._newline)] == self._newline
@@ -327,11 +330,11 @@ class Alex:
     def _eat_indent(self, text):
         count = 0
         try:
-            while text and text[count] == ' ':
+            while text and text[count] == " ":
                 count += 1
         except IndexError:
             pass
-        self._add_token('INDENT', str(count))
+        self._add_token("INDENT", str(count))
         return self._eat_text(text, count)
 
     def _eat_last_token(self, text):

@@ -1,4 +1,3 @@
 import alex
 
-print(alex.__version__)
-
+print(alex.version)
