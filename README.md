@@ -452,3 +452,52 @@ This only works correct if the indents only consists of spaces and not tabs.
     print("----(Tokens found)----------")
     for token in lexer.tokens:
         print(token)
+
+## Building distribution
+
+To build a distribution that can be uploaded to PyPi, run the
+following command:
+
+    tools/build_dist.cmd
+
+In order for this to work the **build** package must be installed.
+
+## Upload distribution to PyPi
+
+In order to upload a new distribution you first have to bump up
+the **version number** in **pyproject.toml**. You can't upload
+the same version twice.
+
+Thereafter, run the command
+
+    tools/install_pypi.cmd
+
+## Run documentation server locally
+
+To test the documentation web pages you can start a local
+server with the command:
+
+    tools/docs_server.cmd
+
+
+## Upload documentation to Github
+
+The documentation is found at https://rogerlindberg.github.io/alex
+
+To upload new or editied documentation, use the command:
+
+    tools/docs_to_github.cmd
+
+The documentation is created with **mkdocs**, which must be installed.
+
+
+## Run tests
+
+For testing the package **pytest** must be installed.
+
+All tests are found. in the **tests** directory.
+
+To run all tests:
+
+    python tools/run_tests.cmd
+
