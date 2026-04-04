@@ -477,7 +477,7 @@ Thereafter, run the command
 To test the documentation web pages you can start a local
 server with the command:
 
-    tools/docs_server.cmd
+    tools/run_docs_local_server.cmd
 
 
 ## Upload documentation to Github

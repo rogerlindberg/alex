@@ -27,6 +27,7 @@ plugins:
             docstring_style: google
             show_source: true
 
+
 # Don't show warnings like
 # │  ⚠  Warning from the Material for MkDocs team
 # │
