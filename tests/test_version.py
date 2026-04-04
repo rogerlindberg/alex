@@ -5,8 +5,22 @@ from docutils import DataError
 import alex
 
 
-def test_scan():
+def test_version():
     assert alex.version == get_version_from_toml()
+
+
+def test_version_in_changelog():
+    version_number = get_version_from_toml()
+    assert get_version_from_changelog(version_number)
+
+
+def get_version_from_changelog(version_number):
+    with open(os.path.join('..', 'CHANGELOG.md')) as fp:
+        lines = fp.read().split('\n')
+        for line in lines:
+            if f'## [{version_number}]' in line:
+                return True
+    return False
 
 
 def get_version_from_toml():
