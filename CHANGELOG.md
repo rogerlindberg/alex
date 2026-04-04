@@ -1,7 +1,5 @@
 # Changelog
 
-## [0.1.0] - 2026-03-27
+## [0.1.5] - 2026-04-04
 ### Added
-- Första versionen av paketet.
-- Lexer och parser.
-- Dokumentation med MkDocs.
+- First version
