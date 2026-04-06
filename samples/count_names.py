@@ -57,62 +57,28 @@ REGEXPS = (
     ("REM", "^#[^\n]*"),
     ("ID", f"^[a-zA-Z_0-9]*"),
 )
-KEYWORDS = [
-    "False",
-    "None",
-    "True",
-    "and",
-    "as",
-    "assert",
-    "async",
-    "await",
-    "break",
-    "class",
-    "continue",
-    "def",
-    "del",
-    "elif",
-    "else",
-    "except",
-    "finally",
-    "for",
-    "from",
-    "global",
-    "if",
-    "import",
-    "in",
-    "is",
-    "lambda",
-    "nonlocal",
-    "not",
-    "or",
-    "pass",
-    "raise",
-    "return",
-    "try",
-    "while",
-    "with",
-    "yield",
-
-    "self",
-    "dict",
-    "set",
-    "string",
-    "isinstance",
-    "args",
-    "kwargs",
-]
-
-lexer = alex.Alex(
-    operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS, scan_python_indents=True
-)
-
-path = os.path.join('..', 'alex', '__init__.py')
-lexer.scan_file(path)
 
 
-print("----(Counting 20 most common occurrences of identifier names)----------")
-names = [token.lexeme for token in lexer.tokens if token.name == 'ID']
-counter = Counter(names).most_common(20)
-for name, length in counter:
-    print(f'{length:3} {name}')
+def count_names(count=10, verbose=False):
+    path = os.path.join("..", "alex", "__init__.py")
+    lexer = alex.Alex(operators=OPERATORS, regexps=REGEXPS)
+    lexer.scan_file(path)
+    print_report(lexer, count, verbose)
+
+
+def print_report(lexer, count, verbose):
+    if verbose:
+        print("----(Tokens found)----------")
+        for token in lexer.tokens:
+            print(token)
+    print(
+        f"----(Counting {count} most common occurrences of identifier names)----------"
+    )
+    names = [token.lexeme for token in lexer.tokens if token.name == "ID"]
+    counter = Counter(names).most_common(count)
+    for name, length in counter:
+        print(f"{length:3} {name}")
+
+
+if __name__ == "__main__":
+    count_names(verbose=False)
