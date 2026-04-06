@@ -8,3 +8,8 @@
 
 - Cleaning up project structure
 - Added som tests
+
+## [0.1.7] - 2026-04-06
+
+- Added coverage
+- Added tests
