@@ -21,13 +21,9 @@ version = "0.1.6"
 class AlexScanError(Exception):
     """Raised when the lexer encounters invalid input during scanning."""
 
-    pass
-
 
 class AlexDefinitionError(Exception):
     """Raised when definitions or lexer configuration are invalid."""
-
-    pass
 
 
 class Token:
