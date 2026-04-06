@@ -1,5 +1,6 @@
 """
-Duplicated keywords are silently ignored.
+This sample demonstrates that duplicated keywords are
+silently ignored.
 
 """
 
@@ -20,13 +21,21 @@ KEYWORDS = [
     "then",
 ]
 
-lexer = alex.Alex(operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS)
 
-lexer.scan(
-    """if foo == bar 
-then x = 17"""
-)
+def demonstrate():
+    lexer = alex.Alex(operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS)
+    lexer.scan(
+        """if foo == bar 
+    then x = 17"""
+    )
+    print_report(lexer)
 
-print("----(Tokens found)----------")
-for token in lexer.tokens:
-    print(token)
+
+def print_report(lexer):
+    print("----(Tokens found)----------")
+    for token in lexer.tokens:
+        print(token)
+
+
+if __name__ == "__main__":
+    demonstrate()
