@@ -22,7 +22,7 @@ def test_scan_file():
     lexer.scan_file("tmp.txt")
     lexemes = [t.lexeme for t in lexer.tokens]
     assert "".join(lexemes) == "17+5-12"
-    os.remove('tmp.txt')
+    os.remove("tmp.txt")
 
 
 def test_generate():
@@ -43,7 +43,8 @@ def test_generate_file():
     gen = lexer.generate_file("tmp.txt")
     lexemes = [t.lexeme for t in gen]
     assert "".join(lexemes) == "17+5-12"
-    os.remove('tmp.txt')
+    os.remove("tmp.txt")
+
 
 def test_validate_operators_accepts_unique_names_and_lexemes():
     lexer = alex.Alex()
@@ -175,7 +176,9 @@ def test_unrecognized_first_char():
     lexer = alex.Alex(regexps=regexps)
     with pytest.raises(
         alex.AlexScanError,
-        match=re.escape("Unrecognized char '=' ordinal 61\nFollowing 10 characters are: x\nNo tokens was scanned"),
+        match=re.escape(
+            "Unrecognized char '=' ordinal 61\nFollowing 10 characters are: x\nNo tokens was scanned"
+        ),
     ):
         lexer.scan("=x")
 
@@ -185,13 +188,15 @@ def test_unrecognized_chars():
     lexer = alex.Alex(regexps=regexps)
     with pytest.raises(
         alex.AlexScanError,
-        match=re.escape("Unrecognized char '=' ordinal 61\nFollowing 10 characters are: \nLast scanned Token:     1:  1  ID"),
+        match=re.escape(
+            "Unrecognized char '=' ordinal 61\nFollowing 10 characters are: \nLast scanned Token:     1:  1  ID"
+        ),
     ):
         lexer.scan("x=")
 
 
 def test_trim():
     regexps = (("ID", f"^[a-zA-Z_0-9\r\n]*"),)
-    lexer = alex.Alex(regexps=regexps, skip_unrecognized_chars='\t')
+    lexer = alex.Alex(regexps=regexps, skip_unrecognized_chars="\t")
     lexer.scan("foobar\r\n")
-    assert lexer.tokens[0].lexeme == 'foobar'
+    assert lexer.tokens[0].lexeme == "foobar"
