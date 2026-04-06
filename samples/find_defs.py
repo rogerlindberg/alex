@@ -1,3 +1,4 @@
+import os
 from collections import Counter
 import alex
 
@@ -6,7 +7,9 @@ REGEXPS = (("DEF", r"^def\s+[A-Za-z_][A-Za-z0-9_]*\s*\([^)]*\)\s*(?:->\s*[^:]+)?
 
 lexer = alex.Alex(regexps=REGEXPS, skip_unrecognized_chars=True)
 
-lexer.scan_file("test.py")
+path = os.path.join('..', 'alex', '__init__.py')
+lexer.scan_file(path)
+
 
 print("----(Tokens found)----------")
 for token in lexer.tokens:

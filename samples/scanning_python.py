@@ -1,3 +1,4 @@
+import os
 import alex
 
 
@@ -97,7 +98,9 @@ lexer = alex.Alex(
     operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS, scan_python_indents=True
 )
 
-lexer.scan_file("test.py")
+path = os.path.join('..', 'alex', '__init__.py')
+lexer.scan_file(path)
+
 
 print("----(Tokens found)----------")
 for token in lexer.tokens:

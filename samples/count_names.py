@@ -1,4 +1,5 @@
 from collections import Counter
+import os
 import alex
 
 
@@ -106,7 +107,9 @@ lexer = alex.Alex(
     operators=OPERATORS, regexps=REGEXPS, keywords=KEYWORDS, scan_python_indents=True
 )
 
-lexer.scan_file("test.py")
+path = os.path.join('..', 'alex', '__init__.py')
+lexer.scan_file(path)
+
 
 print("----(Counting 20 most common occurrences of identifier names)----------")
 names = [token.lexeme for token in lexer.tokens if token.name == 'ID']
