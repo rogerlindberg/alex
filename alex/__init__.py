@@ -260,8 +260,6 @@ class Alex:
             return self._eat_last_token(text)
         if self._regexp_token_created(text):
             return self._eat_last_token(text)
-        if self._keyword_token_created(text):
-            return self._eat_last_token(text)
         # Last resort. Skip the char
         if self._skip_unrecognized_chars:
             self._nbr_of_skipped_chars += 1
@@ -294,13 +292,6 @@ class Alex:
         for name, lexeme in self._operators:
             if text[: len(lexeme)] == lexeme:
                 self._add_token(name, lexeme)
-                return True
-
-    def _keyword_token_created(self, text):
-        for keyword in self._keywords:
-            size = len(keyword)
-            if text[:size] == keyword:
-                self._add_token("KEYWORD", text[:size])
                 return True
 
     def _regexp_token_created(self, text):
