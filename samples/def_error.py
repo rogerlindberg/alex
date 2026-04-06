@@ -1,3 +1,9 @@
+"""
+This sample demonstrates what happens when there exists
+duplicate keywords in the definitions.
+
+"""
+
 import alex
 
 
@@ -9,9 +15,13 @@ OPERATORS = (
 REGEXPS = (("NUM", '^["0123456789"]*'),)
 
 
-try:
-    lexer = alex.Alex(operators=OPERATORS, regexps=REGEXPS)
-    lexer.scan("1 + 2 - 123")
-except alex.AlexDefinitionError as ex:
-    print("----(Error report)----------")
-    print(ex)
+def demonstrate():
+    try:
+        lexer = alex.Alex(operators=OPERATORS, regexps=REGEXPS)
+    except alex.AlexDefinitionError as ex:
+        print("----(Error report)----------")
+        print(ex)
+
+
+if __name__ == "__main__":
+    demonstrate()
