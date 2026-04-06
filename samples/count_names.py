@@ -1,3 +1,11 @@
+"""
+Count the number of occurrences of identifiers in the input and print a
+sorted top list to stdout.
+
+In this example, the input is this the Alex file.
+
+"""
+
 from collections import Counter
 import os
 import alex
