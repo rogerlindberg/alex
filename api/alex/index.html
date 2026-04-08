@@ -1202,7 +1202,8 @@
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>alex\__init__.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
+<span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
@@ -1249,8 +1250,7 @@
 <span class="normal">74</span>
 <span class="normal">75</span>
 <span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Token</span><span class="p">:</span>
+<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Token</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a lexical token produced by the Alex lexer.</span>
 
 <span class="sd">    A token consists of:</span>
@@ -1436,10 +1436,8 @@
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>alex\__init__.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AlexDefinitionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AlexDefinitionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when definitions or lexer configuration are invalid.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -1470,11 +1468,9 @@
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>alex\__init__.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
-<span class="normal">21</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
 <span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AlexScanError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when the lexer encounters invalid input during scanning.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -1527,7 +1523,8 @@ for token in alex.tokens:
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>alex\__init__.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 80</span>
+<span class="normal"> 81</span>
 <span class="normal"> 82</span>
 <span class="normal"> 83</span>
 <span class="normal"> 84</span>
@@ -1884,37 +1881,39 @@ for token in alex.tokens:
 <span class="normal">435</span>
 <span class="normal">436</span>
 <span class="normal">437</span>
-<span class="normal">438</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Alex</span><span class="p">:</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Alex</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Alex is a lexical analyzer that scans input text and produces a sequence</span>
-<span class="sd">        of `Token` objects.</span>
+<span class="sd">    Alex is a lexical analyzer that scans input text and produces a sequence</span>
+<span class="sd">    of `Token` objects.</span>
 
-<span class="sd">        The scanner attempts to match the input in the following order:</span>
+<span class="sd">    The scanner attempts to match the input in the following order:</span>
 
-<span class="sd">            1. newline string</span>
-<span class="sd">            2. characters to skip</span>
-<span class="sd">            3. operator words</span>
-<span class="sd">            4. regular expression words (checked against keywords)</span>
-<span class="sd">            5. keywords</span>
+<span class="sd">        1. newline string</span>
+<span class="sd">        2. characters to skip</span>
+<span class="sd">        3. operator words</span>
+<span class="sd">        4. regular expression words (checked against keywords)</span>
+<span class="sd">        5. keywords</span>
 
-<span class="sd">        When a match is found, a `Token` is created and the input pointer is</span>
-<span class="sd">        advanced by the length of the matched lexeme.</span>
+<span class="sd">    When a match is found, a `Token` is created and the input pointer is</span>
+<span class="sd">    advanced by the length of the matched lexeme.</span>
 
-<span class="sd">        If no match is found, an exception is raised unless</span>
-<span class="sd">        `skip_unrecognized_chars` is set to True. In that case, the character is</span>
-<span class="sd">        ignored and printed to stdout.</span>
+<span class="sd">    If no match is found, an exception is raised unless</span>
+<span class="sd">    `skip_unrecognized_chars` is set to True. In that case, the character is</span>
+<span class="sd">    ignored and printed to stdout.</span>
 
-<span class="sd">        Definitions for keywords, regular expression words, and operators are</span>
-<span class="sd">        provided when creating the `Alex` instance or via its properties.</span>
+<span class="sd">    Definitions for keywords, regular expression words, and operators are</span>
+<span class="sd">    provided when creating the `Alex` instance or via its properties.</span>
 
-<span class="sd">        Example:</span>
-<span class="sd">            ```python</span>
-<span class="sd">            alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)</span>
-<span class="sd">            alex.scan_file(path)</span>
-<span class="sd">            for token in alex.tokens:</span>
-<span class="sd">                print(token)</span>
-<span class="sd">            ```</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    Example:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        alex = Alex(keywords=KEYWORDS, regexps=REGEXPS, operators=OPERATORS)</span>
+<span class="sd">        alex.scan_file(path)</span>
+<span class="sd">        for token in alex.tokens:</span>
+<span class="sd">            print(token)</span>
+<span class="sd">        ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1925,7 +1924,8 @@ for token in alex.tokens:
         <span class="n">operators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">skip_unrecognized_chars</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">treat_unrecognized_chars_as_an_operator</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">scan_python_indents</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">scan_python_indents</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">regexp_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the Alex lexer.</span>
@@ -1962,9 +1962,13 @@ for token in alex.tokens:
 <span class="sd">            scan_python_indents:</span>
 <span class="sd">                If True, indentation tokens are generated similar to Python&#39;s</span>
 <span class="sd">                indentation rules.</span>
+
+<span class="sd">            regexp_first:</span>
+<span class="sd">                Change the order in which tokens are matched by trying the</span>
+<span class="sd">                regexps before the operators.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">used_token_keys</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;KEYWORD&#39;</span><span class="p">,</span> <span class="s1">&#39;INDENT&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used_token_keys</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;KEYWORD&quot;</span><span class="p">,</span> <span class="s2">&quot;INDENT&quot;</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">used_token_lexemes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tokens</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_line_nbr</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1982,6 +1986,7 @@ for token in alex.tokens:
             <span class="n">treat_unrecognized_chars_as_an_operator</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scan_python_indents</span> <span class="o">=</span> <span class="n">scan_python_indents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_regexp_first</span> <span class="o">=</span> <span class="n">regexp_first</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">nbr_of_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -2063,12 +2068,16 @@ for token in alex.tokens:
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_indent</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_skipchar</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_token_created</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_last_token</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regexp_token_created</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_last_token</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keyword_token_created</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_last_token</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regexp_first</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regexp_token_created</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_last_token</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_token_created</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_last_token</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_token_created</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_last_token</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regexp_token_created</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_last_token</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="c1"># Last resort. Skip the char</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_skip_unrecognized_chars</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_nbr_of_skipped_chars</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -2087,7 +2096,7 @@ for token in alex.tokens:
                 <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_is_indent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col_nbr</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col_nbr</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_is_newline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newline</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_newline</span><span class="p">)]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newline</span>
@@ -2101,13 +2110,6 @@ for token in alex.tokens:
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">lexeme</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operators</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">text</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">lexeme</span><span class="p">)]</span> <span class="o">==</span> <span class="n">lexeme</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_add_token</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">lexeme</span><span class="p">)</span>
-                <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_keyword_token_created</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span><span class="p">:</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">text</span><span class="p">[:</span><span class="n">size</span><span class="p">]</span> <span class="o">==</span> <span class="n">keyword</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_token</span><span class="p">(</span><span class="s2">&quot;KEYWORD&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">[:</span><span class="n">size</span><span class="p">])</span>
                 <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_regexp_token_created</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
@@ -2133,11 +2135,11 @@ for token in alex.tokens:
     <span class="k">def</span><span class="w"> </span><span class="nf">_eat_indent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">while</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
                 <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">pass</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_add_token</span><span class="p">(</span><span class="s1">&#39;INDENT&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_token</span><span class="p">(</span><span class="s2">&quot;INDENT&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eat_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_eat_last_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
@@ -2262,7 +2264,7 @@ for token in alex.tokens:
 
 
 <h2 id="alex.Alex.__init__" class="doc doc-heading">
-            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">skip_chars</span><span class="o">=</span><span class="s1">&#39; </span><span class="se">\t\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regexps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">operators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skip_unrecognized_chars</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">treat_unrecognized_chars_as_an_operator</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scan_python_indents</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">skip_chars</span><span class="o">=</span><span class="s1">&#39; </span><span class="se">\t\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regexps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">operators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skip_unrecognized_chars</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">treat_unrecognized_chars_as_an_operator</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scan_python_indents</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">regexp_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h2>
 
@@ -2411,13 +2413,30 @@ indentation rules.</p>
                   <code>False</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>regexp_first</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Change the order in which tokens are matched by trying the
+regexps before the operators.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>alex\__init__.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
+<span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span>
@@ -2482,7 +2501,12 @@ indentation rules.</p>
 <span class="normal">175</span>
 <span class="normal">176</span>
 <span class="normal">177</span>
-<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">skip_chars</span><span class="o">=</span><span class="s2">&quot; </span><span class="se">\t\r</span><span class="s2">&quot;</span><span class="p">,</span>
     <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -2491,7 +2515,8 @@ indentation rules.</p>
     <span class="n">operators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">skip_unrecognized_chars</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">treat_unrecognized_chars_as_an_operator</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">scan_python_indents</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">scan_python_indents</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">regexp_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the Alex lexer.</span>
@@ -2528,9 +2553,13 @@ indentation rules.</p>
 <span class="sd">        scan_python_indents:</span>
 <span class="sd">            If True, indentation tokens are generated similar to Python&#39;s</span>
 <span class="sd">            indentation rules.</span>
+
+<span class="sd">        regexp_first:</span>
+<span class="sd">            Change the order in which tokens are matched by trying the</span>
+<span class="sd">            regexps before the operators.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">used_token_keys</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;KEYWORD&#39;</span><span class="p">,</span> <span class="s1">&#39;INDENT&#39;</span><span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">used_token_keys</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;KEYWORD&quot;</span><span class="p">,</span> <span class="s2">&quot;INDENT&quot;</span><span class="p">}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">used_token_lexemes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_tokens</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_line_nbr</span> <span class="o">=</span> <span class="mi">1</span>
@@ -2548,6 +2577,7 @@ indentation rules.</p>
         <span class="n">treat_unrecognized_chars_as_an_operator</span>
     <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_scan_python_indents</span> <span class="o">=</span> <span class="n">scan_python_indents</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_regexp_first</span> <span class="o">=</span> <span class="n">regexp_first</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2571,13 +2601,13 @@ tokens found in the text of the input file.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>alex\__init__.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">scan_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">scan_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a list of Token objects representing the</span>
 <span class="sd">    tokens found in the text of the input file.</span>
@@ -2607,14 +2637,14 @@ tokens found in the text of the input file.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>alex\__init__.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">209</span>
 <span class="normal">210</span>
-<span class="normal">211</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a list of Token objects representing the</span>
 <span class="sd">    tokens found in the text of the input file.</span>
@@ -2645,14 +2675,14 @@ tokens found in the given input text.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>alex\__init__.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
 <span class="normal">219</span>
-<span class="normal">220</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a list of Token objects representing the</span>
 <span class="sd">    tokens found in the given input text.</span>
@@ -2683,19 +2713,19 @@ tokens found in the given input text.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>alex\__init__.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">227</span>
 <span class="normal">228</span>
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
 <span class="normal">232</span>
 <span class="normal">233</span>
-<span class="normal">234</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a list of Token objects representing the</span>
 <span class="sd">    tokens found in the given input text.</span>
